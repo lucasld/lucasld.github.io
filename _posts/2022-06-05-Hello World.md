@@ -3,25 +3,11 @@ layout: post
 title: Hello World
 ---
 
-### Testing p5js
+## Testing p5js
 Here I am testing if usage of p5 sketches in combination with Jekyll is feasable.
-
-
-This text should be behind the canvas.
-
-
 
 <div id="sketch-holder"></div>
 <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.min.js"></script>
 <script language="javascript" type="text/javascript" src="/assets/scripts/sketch.js"></script>
 
-
-<div id="html" markdown="0">
-<h1>HTML part</h1>
-
-  <ul>
-    <li>Foo</li>
-    <li>Bar</li>
-  </ul>
-
-</div>
+This text should be behind the canvas.
