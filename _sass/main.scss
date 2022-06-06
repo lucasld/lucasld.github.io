@@ -96,3 +96,13 @@ pre.highlight {
     display: inline-block !important;
   }
 }
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-brand canvas {
+  display: flex;
+  margin-right: 5px;
+}
