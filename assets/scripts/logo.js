@@ -11,12 +11,13 @@ function setup() {
     } else {
         particle_color = color(0);
     }
-    particleSystem = new ParticleSystem(30);
+    particleSystem = new ParticleSystem(200);
 }
   
 function draw() {
     clear();
-    particleSystem.step();
+    particleSystem.step((mouseX - windowWidth/2)/(windowWidth/2),
+                        (mouseY - windowHeight/2)/(windowHeight/2));
 }
 
 
@@ -25,12 +26,13 @@ class Particle {
         this.x = width/2;
         this.y = height/2;
         this.s = random(80, 160);
-        this.r = random(7, 10);
+        this.r = random(11, 12);
+        this.b = random(0, 2) - 1;
     }
 
-    move() {
-        this.x = width/2 + cos(this.s + frameCount/this.s) * this.r + sin(this.s + frameCount/this.s/2) * this.r/2;
-        this.y = height/2 + sin(this.s + frameCount/this.s) * this.r;
+    move(factorX, factorY) {
+        this.x = width/2 + (cos(factorY/3 + frameCount/150) * this.r + sin(this.s + frameCount / 150) * this.r/2) * this.b
+        this.y = height/2 + sin(this.s + factorX/3 + frameCount/150) * this.r;
     }
 }
 
@@ -42,14 +44,14 @@ class ParticleSystem {
         }
     }
 
-    step() {
+    step(factorX, factorY) {
         // move all particles
-        this.particles.forEach(x => x.move());
+        this.particles.forEach(x => x.move(factorX, factorY));
         // draw particles
         for (var i=0; i<this.particles.length; i++){
             let particle = this.particles[i];
             stroke(particle_color);
-            strokeWeight(2);
+            strokeWeight(1.5);
             //fill (255, 0, 0);
             //ellipse(particle.x, particle.y, 30, 30);
             point (particle.x, particle.y);
