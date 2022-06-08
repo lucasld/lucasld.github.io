@@ -3,18 +3,18 @@ layout: post
 title: Machine Learning - Concept Learning
 ---
 Concept Learning is the search in the space of hypotheses for the hypothesis best fitting the examples.\
-Let's assume our target function is binary and each example/instance contains 5 binary attributes. In this case there are $$2^5 = 96$$ possible instances. How our hypothesis space looks like dependes on how we represent a hypothesis. We define our hypothesis to be a conjunction of constraints on the 5 attributes.\
+Let's assume our target function is binary and each example/instance contains 5 binary attributes. In this case there are $2^5 = 96$ possible instances. How our hypothesis space looks like dependes on how we represent a hypothesis. We define our hypothesis to be a conjunction of constraints on the 5 attributes.\
 Each constraint can be:
-- a specific value, $$attribute1 = true$$
-- value unimportant, e.g. $$attribute1 = ?$$
-- no value allowed, e.g. $$attribute1 = \emptyset$$
+- a specific value, $attribute1 = true$
+- value unimportant, e.g. $attribute1 = ?$
+- no value allowed, e.g. $attribute1 = \varnothing$
 
-As every attribute can either be false or true and additionaly may contain the values $$?$$ and $$\emptyset$$ there is $$4^5 = 1024$$ possible hypothesis. As a hypothesis containing at least one $$\emptyset$$ represents an empty set of instances, there are only $$1+4^4 = 257$$ sementically distinct hypothesis.
+As every attribute can either be false or true and additionaly may contain the values $?$ and $\varnothing$ there is $4^5 = 1024$ possible hypothesis. As a hypothesis containing at least one $\varnothing$ represents an empty set of instances, there are only $1+4^4 = 257$ sementically distinct hypothesis.
 
 **Inductive Learning Hypothesis:** Any hypothesis found to approximate the target function well over a sufficently large set of training examples will also approcimate the target function well over other unobserved examples.
 
 ### Find-S algorithm
-The Find-S algorithm is a algorithm which goes from the maximally general hypothesis to a maximally specific hypothesis. A hypothesis $$h_2$$ is more or equally generally than $$h_1$$ iff any instance that is classified positive by $$h_1$$ is also classifies positive by $$h_2$$.
+The Find-S algorithm is a algorithm which goes from the maximally general hypothesis to a maximally specific hypothesis. A hypothesis $h_2$ is more or equally generally than $h_1$ iff any instance that is classified positive by $h_1$ is also classifies positive by $h_2$.
 
 ```python
 init h to the most specific hypothesis in H
@@ -33,13 +33,13 @@ return h
 - depending on H, there might be several solutions
 
 ### Version Space
-A hypothesis h is **consistent** with a set of training examples D of target concept c iff $$h(x) = c(x)$$ for each training example $$(x, c(x)) \in D$$.
+A hypothesis h is **consistent** with a set of training examples D of target concept c iff $h(x) = c(x)$ for each training example $(x, c(x)) \in D$.
 
-$$Consistent(h, D) \Leftrightarrow \forall(x, c(x)) \in D: h(x) = c(x)$$
+$Consistent(h, D) \Leftrightarrow \forall(x, c(x)) \in D: h(x) = c(x)$
 
-The **version space** $$VS_{H,D}$$ with repect to hypothesis space H and training examples D is the subset of hypotheses from H consistent with all training examples in D
+The **version space** $VS_{H,D}$ with repect to hypothesis space H and training examples D is the subset of hypotheses from H consistent with all training examples in D
 
-$$VS_{H,D} = {h \in H | Consistent(h, D)}$$
+$VS_{H,D} = \lbrace h \in H \| Consistent(h, D) \rbrace$
 
 ### List-Then-Eliminate algorithm
 To obtain the version space, we start with all hypotheses. Then for each example the inconsistent hypotheses are eliminated.
@@ -57,11 +57,11 @@ Note that the List-Then-Eliminate algorithm can only be applied if the hypothesi
 
 ### Representing version spaces
 The version space is defined by a **general boundary** and a **specific boundary**.
-- The **general boundary** G of version space $$VS_{H, D}$$ is the set of its maximally general members
-- The **specific boundary** S of version space $$VS_{H, D}$$ is the set of its maximally specific members
+- The **general boundary** G of version space $VS_{H, D}$ is the set of its maximally general members
+- The **specific boundary** S of version space $VS_{H, D}$ is the set of its maximally specific members
 
 Every member of the version space lies between (including) these boundaries:
-$$VS_{H, D} = \{h \in H | \exists s \in S, \exists g \in G: g \geq h \leq s\}$$
+$VS_{H, D} = \lbrace h \in H | \exists s \in S, \exists g \in G: g \geq h \leq s \rbrace$
 
 ### Candiate-Elimination algorithm
 Having defined the VS by its boundaries we can now search the VS without enumrating all hypothesis explixitely. Instead we start with the maximally general and specific boundaries (G, S) and iteratively specilize G and generalize S.
@@ -95,6 +95,6 @@ The size of the remaining version space reflects the amount of missing informati
 ### Inductive Bias
 A bias-free learning system makes no a priori assumptions about the structure of the world. Thus it can merely collect the examples and will be unable to generalize. It is important to know where the inductive bias is employed in our learner.\
 Formal definition:
-- Training set $$D_c = \{<x, x(x)>\}$$ for target concept c
-- Learning system L. After training on $$D_c$$, $$L$$ yields the classification $$L(x_i, D_c)$$ for an unknown instance $$x_i$$. Notation: $$D_c  \wedge x_i \succ L(x_i, D_c)$$ where $$a \succ b$$ denotes b is *inductively inferred* from a
-- The inductive bias of L is any minimal set of assertions B such that $$\forall x_i \in X: B \wedge D_c \wedge x_i \models L(x_i, D_c)$$ where $$a \models b$$ denotes b is *deductively inferred* from (or logically entailed by) a.
+- Training set $D_c = \{<x, x(x)>\}$ for target concept c
+- Learning system L. After training on $D_c$, $L$ yields the classification $L(x_i, D_c)$ for an unknown instance $x_i$. Notation: $D_c  \wedge x_i \succ L(x_i, D_c)$ where $a \succ b$ denotes b is *inductively inferred* from a
+- The inductive bias of L is any minimal set of assertions B such that $\forall x_i \in X: B \wedge D_c \wedge x_i \models L(x_i, D_c)$ where $a \models b$ denotes b is *deductively inferred* from (or logically entailed by) a.
