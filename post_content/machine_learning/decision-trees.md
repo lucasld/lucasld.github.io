@@ -152,4 +152,11 @@ Split information is the entropy with repect to the attribute values.\
 Properties of *Gain Ratio*:
 - if two attributes yield indetical *Gain* and for both the distribution of attribute values over S is uniform, then *GainRatio* favor the attribute with fewer values.
 - *GainRatio* is undefined for attributes with the same value for all examples (zero denominator), but such attributes are no use anyway
-- *GainRatio* is very large if $|S_i| $
+- *GainRatio* is very large if $\|S_i\| \approx \|S\|$
+
+#### Attributes with cost
+If obtaining some attribute value has a cost, this cost should be taken into account in addition to the information (f.e. medical diagnostics: Attribute Diagnosis has the attribute values BloodTest(150€) and Pulse(2,20€)).
+
+How exactly the cost is taken into account relative to the information gain is highly dependent on the task.
+- Nunez (1988) proposal for medical diagnosis: $(2^{Gain(S, A)} - 1) / (Cost(A) + 1)^w$ where $w \in [0, 1]$ determines the importance of cost
+- Tan & Schlimmer (1990) proposal for object classification using robot manipulator: $Gain^2(S,A) / Cost(A)$
