@@ -40,8 +40,25 @@ while True:
 Once we detected our outliers we have to handle them. One option is to simply *remove* them. This results in information loss and therefore we should consider to *replace* or *weight* the outliers instead.
 
 #### Missing values
-Missing values pose a major problem as they can make most of our data unusable if no measures are taken.
+Missing values pose a major problem as they can make most of our data unusable if no measure is taken.
 
 Imagine that a datapoint consists of 100 elements. If the probability that a value is missing is $p=2\%$ then the probability that the vector is complete and therefore usable is $(1 - p)^{100} = 13\%$. If we don't do anything we wont be able to use $87\%$ of the data!
 
+**Idea 1**
+Replace missing values by the mean or median from the rest of the data set.
 
+**Idea 2**
+Estimate a model to predict missing values, f.e. linear regression.
+
+$y' = y_s x + y_{0}$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $x' = x_s y + x_{0}$\
+$y_s = C_{xy}/C_{xx}$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $x_s = C_{xy}/C_{yy}$\
+$y_0 = \mu_y - y_s\mu_x$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $x_0 = \mu_x - x_s\mu_y$
+
+$C_{xy}$ is the covariance of x and y and is $C_{xy} = \sum_{i=1...n}(x_i - \mu_x)*(y_i - \mu_y)$
+
+<div id="linear_regression_sketch" style="position: relative;">
+<script language="javascript" type="text/javascript" src="/post_content/machine_learning/scripts/linear_regression.js"></script>
+</div>
+
+**Idea 3**
+EM alogorithm...
