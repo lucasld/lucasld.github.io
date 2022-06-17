@@ -4,7 +4,7 @@ title: Machine Learning - Basics of Data Mining
 ---
 
 
-### Data Preprocessing$ $
+### Data Preprocessing
 There are several problems which make data preprocessing necessary.
 1. Data Format\
     This can be very difficult as data representation can differ stronly and conversion between different representations can not be generalized but has to be solved problem specific

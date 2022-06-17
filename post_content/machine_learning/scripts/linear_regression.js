@@ -30,10 +30,10 @@ linear_regression = (sketch) => {
         }
         document.getElementById('defaultCanvas1').style.border = "1px solid";
         // don't change until here ------#
-        slider_amount = sketch.createSlider(20, 100, 60, 1);
+        slider_amount = sketch.createSlider(20, 300, 150, 1);
         slider_amount.position(20, 0);
         slider_amount.style('height', '80px');
-        slider_distance = sketch.createSlider(20, 100, 20, 1);
+        slider_distance = sketch.createSlider(20, 200, 80, 1);
         slider_distance.position(180, 0);
         slider_distance.style('height', '80px');
 
@@ -56,8 +56,8 @@ linear_regression = (sketch) => {
         let val_m1 = slider_m1.value();
         let val_n1 = slider_n1.value();
         // create random numbers
-        let x = random_numbers(val_m1, val_n1, val_distance, val_amount);
-        x.forEach((i) => {
+        let xy = random_numbers(val_m1, val_n1, val_distance, val_amount);
+        xy.forEach((i) => {
             sketch.ellipse(i.x + sketch.width/2, i.y + sketch.height/2, 20, 20);
         })
         //sketch.noLoop();
@@ -66,18 +66,24 @@ linear_regression = (sketch) => {
 
     random_numbers = (m, n, d, amount) => {
         m *= -1
-        console.log(n)
         // fix random numbers
         sketch.randomSeed(99);
-        let x = new Array(amount);
+        let offset_vector = new p5.Vector(1, 1/((m!=0)?-m:0.1));
+        //let offset_vector = new p5.Vector(1,1/-m);
+        offset_vector.x = offset_vector.x / offset_vector.mag()
+        offset_vector.y = offset_vector.y / offset_vector.mag()
+        console.log();
+        let random_vectors = new Array(amount);
         for (var i=0; i<amount; i++){
-            var x_line = sketch.random(-sketch.width/2, sketch.width/2);  // position on line
+            // position on line
+            var x_line = sketch.random(-sketch.width/2 + 100, sketch.width/2 - 100);
             var y_line = m * x_line + n;
 
             var distance = sketch.random(-d, d);  // distance from line
-            x[i] = new p5.Vector(x_line, y_line);
+            random_vectors[i] = new p5.Vector(x_line + offset_vector.x * distance,
+                                              y_line + offset_vector.y * distance);
         }
-        return x;
+        return random_vectors;
     }
 
     // #------ don't change from here
