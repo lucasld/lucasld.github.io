@@ -50,12 +50,10 @@ footer-links:
   rss: # just type anything here for a working RSS icon
   twitter:
 
-gem 'jekyll-spaceship', group: :jekyll_plugins
+#gem 'jekyll-spaceship', group: :jekyll_plugins
 
 plugins:
   - jekyll-seo-tag
   - jekyll-sitemap
   - jekyll-feed
-  - jekyll-spaceship
-  - jekyll-mermaid
-
+#  - jekyll-spaceship

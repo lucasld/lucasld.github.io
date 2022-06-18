@@ -17,6 +17,7 @@ graph TB;
     D          --Weak-->      H((Yes))
 ```
 
+
 This tree corresponds to: $$\neg ((Outlook=Sunny \wedge Humidity=High) \vee (Outlook=Rain \wedge Wind=String))$$
 
 

@@ -62,5 +62,21 @@ $$C_{xy}$$ is the covariance of x and y and is $$C_{xy} = \sum_{i=1...n}(x_i - \
 <script language="javascript" type="text/javascript" src="/post_content/machine_learning/scripts/linear_regression.js"></script>
 </div>
 
+We use two different regression lines to minimize the error of x and y independitly.\
+$$y'$$ minimizes $$\sum_{i=1...n}(y_i - y'_{x_i})$$\
+$$x'$$ minimizes $$\sum_{i=1...n}(x_i - x'_{y_i})$$
+
 **Idea 3**
-EM alogorithm...
+Estimate the data distribution $$P(x,y)$$ (assuming a nomal distribution $$P(x,y) = N(\vec{\mu}, C))$$, C being the covariance matrix.
+
+The problem when estimating $$P(x,y)$$ is that we can only use the complete data-points and therefore loose all the information contained in the uncomplete data-points.
+
+**Idea 4**
+Usage of the **Expectation Maximization** (EM) algorithm to estimate *P(X,Y)* by using both complete and partial data-points in an iterative manner.
+
+**Defenitions:**\
+**x** &nbsp;&nbsp;&nbsp; denote all *specified data* (complete and partial data-points)\
+**h** &nbsp;&nbsp;&nbsp; all "*hidden*" (missing values)
+**$$\theta$$** &nbsp;&nbsp;&nbsp; all *parameters* of the chosen distribution (such as mean and variances for a Gaussian)
+
+
