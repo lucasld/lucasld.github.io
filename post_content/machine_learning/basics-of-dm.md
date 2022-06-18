@@ -76,7 +76,18 @@ Usage of the **Expectation Maximization** (EM) algorithm to estimate *P(X,Y)* by
 
 **Defenitions:**\
 **x** &nbsp;&nbsp;&nbsp; denote all *specified data* (complete and partial data-points)\
-**h** &nbsp;&nbsp;&nbsp; all "*hidden*" (missing values)
+**h** &nbsp;&nbsp;&nbsp; all "*hidden*" (missing values)\
 **$$\theta$$** &nbsp;&nbsp;&nbsp; all *parameters* of the chosen distribution (such as mean and variances for a Gaussian)
+
+The probability of the known values $$x$$ depends on the distribution (specified by $$\theta$$) $$P(x \| \theta)$$. The probability of the hidden values $$h$$ depends on the distribution ($$\theta$$) and on the data $$x$$ so $$P(h \| x, \theta)$$.
+
+Thus the total distribution is defined as $$P(x, h \|\theta) = P(h\|x, \theta) * P(x\|\theta)$$
+
+The **likelihood** of parameters $$\theta$$ as a function of $$x$$ and $$h$$ is $$L(\theta; x,h) = P(x, h\| \theta)$$
+
+For convenience, we consider the **log-likelihood** instead: $$I(\theta) = \log L(\theta; x,h) = \log P(h \|x, \theta) + \log P(x\|\theta)
+
+We want the parameters $$\theta$$ that maximize the log-likelihood $$I(\theta)$$.
+
 
 
