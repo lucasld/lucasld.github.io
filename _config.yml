@@ -55,6 +55,7 @@ plugins:
   - jekyll-sitemap
   - jekyll-feed
   - jekyll-spaceship
+  - jekyll-mermaid
 
 #gems: [jekyll-mermaid]
 #mermaid:
