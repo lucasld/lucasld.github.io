@@ -17,7 +17,7 @@ graph TB;
     D          --Weak-->      H((Yes))
 ```
 
-This tree corresponds to: $\neg ((Outlook=Sunny \wedge Humidity=High) \vee (Outlook=Rain \wedge Wind=String))$
+This tree corresponds to: $$\neg ((Outlook=Sunny \wedge Humidity=High) \vee (Outlook=Rain \wedge Wind=String))$$
 
 
 ### When to consider decision trees
@@ -41,9 +41,9 @@ Learning a decision tree means finding the best order to ask the attribute value
 ### Entropy and Information Gain
 #### Entropy
 Simply put, information entropy is a *measure of disorder/purity*.\
-The formula for entropy is: $E(S) = \sum_{i=1}^c -p_i log_2 p_i$\
-In our case c is 2 because our classes are either positive or negative. Therefore we can write: $E(S) = -p_+ log_2 p_+ - p_- log_2 p_-$\
-$p_i$ denotes the probability of a certain class in our set S. Entropy is high if the probability for every class are evenly distributed. If our set S only contains positive or only negative examples our entropy is low. If they are evenly split the entropy is high. In different words, our entropy is high if uncertainty is high.
+The formula for entropy is: $$E(S) = \sum_{i=1}^c -p_i log_2 p_i$$\
+In our case c is 2 because our classes are either positive or negative. Therefore we can write: $$E(S) = -p_+ log_2 p_+ - p_- log_2 p_-$$\
+$$p_i$$ denotes the probability of a certain class in our set S. Entropy is high if the probability for every class are evenly distributed. If our set S only contains positive or only negative examples our entropy is low. If they are evenly split the entropy is high. In different words, our entropy is high if uncertainty is high.
 ```python
 import matplotlib.pyplot as plt
 import numpy as np
@@ -62,7 +62,7 @@ plt.savefig('entropy.png', bbox_inches='tight')
 
 #### Information Gain
 To measure the reduction of uncertainty when sorting a set of examples S on attribute A we use information gain. This is simply the difference of the entropy of S and the summed entropy of S sorted on all attribute values of A (weighted by the number of elements in each attribute-value-subset).\
-$Gain(S, A) = E(S) - E(S | A) = E(S) - \sum_{v \in Values(A)}E(S_v) * \dfrac{|S_v|}{|S|}$
+$$Gain(S, A) = E(S) - E(S | A) = E(S) - \sum_{v \in Values(A)}E(S_v) * \dfrac{|S_v|}{|S|}$$
 
 
 ### ID3
@@ -107,7 +107,7 @@ Opposed argument:
 ### Extensions of ID3
 
 #### Avoiding Overfitting
-**Overfitting:** Hypothesis $h \in H$ *overfits* the training data if there is an alternative hypothesis $h' \in H$ such that $error_{train}(h) < error_{train}(h')$ and $error_D(h) < error_D(h')$. (D is the entire distribution - usually not accessible; instead use *independent test data*)
+**Overfitting:** Hypothesis $$h \in H$$ *overfits* the training data if there is an alternative hypothesis $$h' \in H$$ such that $$error_{train}(h) < error_{train}(h')$$ and $$error_D(h) < error_D(h')$$. (D is the entire distribution - usually not accessible; instead use *independent test data*)
 
 To avoid overfitting we can:
 1. stop growing the tree when the splits are not statistically significant anymore
@@ -146,17 +146,17 @@ By using tresholds we can convert continous values to binary attributes. These t
 
 #### Attributes with many values
 The problem with values that have several attributes is that *Gain* tends to select it. The more values the better the different datapoints can be distinguished. One solution to this problem is to use **Gain Ratio** instead of **Gain**.\
-$GainRatio(S, A) = \dfrac{Gain(S, A)}{SplitInformation(S, A)}$\
-$SplitInformation(S, A) = - \sum_{i?1...n}|S_i|/|S|log_2(|S_i|/|S|)$\
+$$GainRatio(S, A) = \dfrac{Gain(S, A)}{SplitInformation(S, A)}$$\
+$$SplitInformation(S, A) = - \sum_{i?1...n}|S_i|/|S|log_2(|S_i|/|S|)$$\
 Split information is the entropy with repect to the attribute values.\
 Properties of *Gain Ratio*:
 - if two attributes yield indetical *Gain* and for both the distribution of attribute values over S is uniform, then *GainRatio* favor the attribute with fewer values.
 - *GainRatio* is undefined for attributes with the same value for all examples (zero denominator), but such attributes are no use anyway
-- *GainRatio* is very large if $\|S_i\| \approx \|S\|$
+- *GainRatio* is very large if $$\|S_i\| \approx \|S\|$$
 
 #### Attributes with cost
 If obtaining some attribute value has a cost, this cost should be taken into account in addition to the information (f.e. medical diagnostics: Attribute Diagnosis has the attribute values BloodTest(150€) and Pulse(2,20€)).
 
 How exactly the cost is taken into account relative to the information gain is highly dependent on the task.
-- Nunez (1988) proposal for medical diagnosis: $(2^{Gain(S, A)} - 1) / (Cost(A) + 1)^w$ where $w \in [0, 1]$ determines the importance of cost
-- Tan & Schlimmer (1990) proposal for object classification using robot manipulator: $Gain^2(S,A) / Cost(A)$
+- Nunez (1988) proposal for medical diagnosis: $$(2^{Gain(S, A)} - 1) / (Cost(A) + 1)^w$$ where $$w \in [0, 1]$$ determines the importance of cost
+- Tan & Schlimmer (1990) proposal for object classification using robot manipulator: $$Gain^2(S,A) / Cost(A)$$

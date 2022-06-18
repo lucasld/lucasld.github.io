@@ -50,6 +50,8 @@ footer-links:
   rss: # just type anything here for a working RSS icon
   twitter:
 
+gem 'jekyll-spaceship', group: :jekyll_plugins
+
 plugins:
   - jekyll-seo-tag
   - jekyll-sitemap
@@ -57,6 +59,3 @@ plugins:
   - jekyll-spaceship
   - jekyll-mermaid
 
-#gems: [jekyll-mermaid]
-#mermaid:
-#  src: 'https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.0.0/mermaid.min.js'
