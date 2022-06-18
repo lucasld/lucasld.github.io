@@ -30,26 +30,29 @@ linear_regression = (sketch) => {
         }
         document.getElementById('defaultCanvas1').style.border = "1px solid";
         // don't change until here ------#
-        slider_amount = sketch.createSlider(20, 300, 150, 1);
+        slider_amount = sketch.createSlider(20, 2000, 400, 1);
         slider_amount.position(20, 0);
         slider_amount.style('height', '80px');
-        slider_distance = sketch.createSlider(20, 200, 80, 1);
+        slider_distance = sketch.createSlider(0, sketch.height, sketch.height/2, 1);
         slider_distance.position(180, 0);
         slider_distance.style('height', '80px');
 
-        slider_m1 = sketch.createSlider(-5, 5, 1, 0.1);
-        slider_n1 = sketch.createSlider(-200, 200, 0, 2);
-        slider_m1.position(20, 30);
+        slider_m1 = sketch.createSlider(-10, 10, 1, 0.1);
+        slider_m1.position(20, 50);
         slider_m1.style('height', '80px');
-        slider_n1.position(180, 30);
+        slider_n1 = sketch.createSlider(-sketch.height/2 - 100, sketch.height/2 + 100, 0, 1);
+        slider_n1.position(180, 50);
         slider_n1.style('height', '80px');
     }
 
     
     sketch.draw = () => {
          // #------ don't change from here
-        sketch.background(100)
+        sketch.background(bg_color)
         // don't change until here ------#
+        // axis lines
+        axis(sketch.height/2, sketch.width/2, 10);
+        // sliders
         let val_amount = slider_amount.value();
         let val_distance = slider_distance.value();
 
@@ -57,10 +60,13 @@ linear_regression = (sketch) => {
         let val_n1 = slider_n1.value();
         // create random numbers
         let xy = random_numbers(val_m1, val_n1, val_distance, val_amount);
-        xy.forEach((i) => {
-            sketch.ellipse(i.x + sketch.width/2, i.y + sketch.height/2, 20, 20);
+        sketch.fill(main_color)
+        xy.forEach((point) => {
+            sketch.ellipse(point.x + sketch.width/2, point.y + sketch.height/2, 5, 5);
         })
         //sketch.noLoop();
+        // regresion line
+        regression_linear(xy);
     }
 
 
@@ -76,14 +82,67 @@ linear_regression = (sketch) => {
         let random_vectors = new Array(amount);
         for (var i=0; i<amount; i++){
             // position on line
-            var x_line = sketch.random(-sketch.width/2 + 100, sketch.width/2 - 100);
-            var y_line = m * x_line + n;
+            var x_line = sketch.random(-sketch.width/2, sketch.width/2);
+            var y_line = (m * sketch.height/sketch.width) * x_line + n;
 
             var distance = sketch.random(-d, d);  // distance from line
             random_vectors[i] = new p5.Vector(x_line + offset_vector.x * distance,
                                               y_line + offset_vector.y * distance);
         }
         return random_vectors;
+    }
+
+
+    axis = (offset_x, offset_y, tick_dist) => {
+        sketch.stroke(main_color);
+        // x-axis
+        sketch.line(0, offset_x, sketch.width, offset_x);
+        var tick_pos = tick_dist;
+        while (tick_pos < sketch.width) {
+            sketch.line(tick_pos, offset_x - 5, tick_pos, offset_x + 5);
+            tick_pos += tick_dist;
+        }
+        // y-axis
+        sketch.line(offset_y, 0, offset_y, sketch.height);
+        tick_pos = tick_dist;
+        while (tick_pos < sketch.height) {
+            sketch.line(offset_y - 5, tick_pos, offset_y + 5, tick_pos);
+            tick_pos += tick_dist;
+        }
+    }
+
+
+    regression_linear = (points) => {
+        let X = new Array(points.length);
+        let Y = new Array(points.length);
+        var mean_x = 0;
+        var mean_y = 0;
+        for (var i=0; i<points.length; i++) {
+            mean_x += points[i].x;
+            mean_y += points[i].y;
+            X[i] = points[i].x;
+            Y[i] = points[i].y;
+        }
+        mean_x /= points.length;
+        mean_y /= points.length;
+        var y_s = covariance(X, Y, mean_x, mean_y) / covariance(X, X, mean_x, mean_x);
+        var x_s = covariance(X, Y, mean_x, mean_y) / covariance(Y, Y, mean_y, mean_y);
+
+        var y_0 = mean_y - y_s * mean_x;
+        var x_0 = mean_x - x_s * mean_y;
+        sketch.stroke(255, 0, 0);
+        sketch.line(y_s * -sketch.height/2 + y_0, 0, y_s * sketch.height/2 + y_0, sketch.height);
+        sketch.line(0, x_s * -sketch.width/2 + x_0, sketch.width, x_s * sketch.width/2 + x_0);
+    }
+
+
+    covariance = (X, Y, meanX, meanY) => {
+        var cov = 0.0;
+        for (var i=0; i<X.length; i++){
+            console.log((X[i] - meanX) * (Y[i] - meanY));
+            cov += (X[i] - meanX) * (Y[i] - meanY);
+        }
+        return cov / (X.length - 1)
     }
 
     // #------ don't change from here
@@ -93,6 +152,7 @@ linear_regression = (sketch) => {
         var _width = parseInt(style.width.slice(0, -2))
         sketch.resizeCanvas(_width - 25, _width * 1/2)
     }
+
     // change main color if switch in theme is detected
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
         main_color = event.matches ? sketch.color(255) : sketch.color(0);
