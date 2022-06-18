@@ -62,8 +62,10 @@ $$C_{xy}$$ is the covariance of x and y and is $$C_{xy} = \sum_{i=1...n}(x_i - \
 <script language="javascript" type="text/javascript" src="/post_content/machine_learning/scripts/linear_regression.js"></script>
 </div>
 
-We use two different regression lines to minimize the error of x and y independitly.\
-$$y'$$ minimizes $$\sum_{i=1...n}(y_i - y'_{x_i})$$\
+We use two different regression lines to minimize the error of x and y independitly.
+
+$$y'$$ minimizes $$\sum_{i=1...n}(y_i - y'_{x_i})$$
+
 $$x'$$ minimizes $$\sum_{i=1...n}(x_i - x'_{y_i})$$
 
 **Idea 3**
