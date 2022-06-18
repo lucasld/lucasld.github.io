@@ -87,7 +87,7 @@ Thus the total distribution is defined as $$P(x, h \|\theta) = P(h\|x, \theta) *
 
 The **likelihood** of parameters $$\theta$$ as a function of $$x$$ and $$h$$ is $$L(\theta; x,h) = P(x, h\| \theta)$$
 
-For convenience, we consider the **log-likelihood** instead: $$I(\theta) = \log L(\theta; x,h) = \log P(h \|x, \theta) + \log P(x\|\theta)
+For convenience, we consider the **log-likelihood** instead: $$I(\theta) = \log L(\theta; x,h) = \log P(h \|x, \theta) + \log P(x\|\theta)$$
 
 We want the parameters $$\theta$$ that maximize the log-likelihood $$I(\theta)$$.
 
