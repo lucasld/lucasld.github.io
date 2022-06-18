@@ -56,6 +56,6 @@ plugins:
   - jekyll-feed
   - jekyll-spaceship
 
-gems: [jekyll-mermaid]
-mermaid:
-  src: 'https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.0.0/mermaid.min.js'
+#gems: [jekyll-mermaid]
+#mermaid:
+#  src: 'https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.0.0/mermaid.min.js'
