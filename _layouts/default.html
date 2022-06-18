@@ -2,7 +2,6 @@
 <html lang="en-us" class="h-100">
   <head>
     <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.min.js"></script>
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
     <title>
       {% if page.title %}{{ page.title }} – {% endif %}{{ site.name }} – {{
       site.description }}
@@ -33,18 +32,6 @@
     -%}
   </head>
   <body class="d-flex flex-column h-100">
-    <script>
-      var config = {
-          startOnLoad:true,
-          theme: 'forest',
-          flowchart:{
-                  useMaxWidth:false,
-                  htmlLabels:true
-              }
-      };
-      mermaid.initialize(config);
-      window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
-      </script>
     <div class="container">
       {% include navigation.html %}
       <div class="body">{{ content }}</div>
