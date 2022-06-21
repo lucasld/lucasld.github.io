@@ -80,9 +80,7 @@ Usage of the **Expectation Maximization** (EM) algorithm to estimate *P(X,Y)* by
 **x** &nbsp;&nbsp;&nbsp; denote all *specified data* (complete and partial data-points)\
 **h** &nbsp;&nbsp;&nbsp; all "*hidden*" (missing values)\
 **$$\theta$$** &nbsp;&nbsp;&nbsp; all *parameters* of the chosen distribution (such as mean and variances for a Gaussian)
-
-The probability of the known values $$x$$ depends on the distribution (specified by $$\theta$$) $$P(x | \theta)$$. The probability of the hidden values $$h$$ depends on the distribution ($$\theta$$) and on the data $$x$$ so $$P(h | x, \theta)$$.
-
+The probability of the known values $$x$$ depends on the distribution (specified by $$\theta$$) $$P(x | \theta)$$. The probability of the hidden values $$h$$ depends on the distribution ($$\theta$$) and on the data $$x$$ so $$P(h | x, \theta)$$.\
 Thus the total distribution is defined as $$P(x, h |\theta) = P(h|x, \theta) * P(x|\theta)$$
 
 The **likelihood** of parameters $$\theta$$ as a function of $$x$$ and $$h$$ is $$L(\theta; x,h) = P(x, h| \theta)$$
@@ -158,4 +156,6 @@ Some commin distances for $$\vec{x}, \vec{y} \in \Re^L$$ are:
     * if C is unit matrix: euclidean distance
     * points of equal Mahalanobis distance to a center form an ellipsoid
 4. Manhatten distance: $$d(\vec{x}, \vec{y}) = \sum_{i=1...L} |\vec{x_i}-\vec{y_i}|$$
-5. Chebyshev distance: $$d(\vec{x}, \vec{y}) = \sum_{i=1...L} |\vec{x_i}-\vec{y_i}|$$
+5. Chebyshev distance: $$d(\vec{x}, \vec{y}) = max_{i=1...L} |\vec{x_i}-\vec{y_i}|$$
+
+**p-norm:**
