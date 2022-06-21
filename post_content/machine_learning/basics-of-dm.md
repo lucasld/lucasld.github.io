@@ -131,11 +131,10 @@ Note the axioms imply d_{ij} \geq 0
 
 #### Distance matrix
 For a data set $$\{\vec{x_1} ... \vec{x_n}$$ all information about distances is assembled in the distance matrix **D**
-
-\begin{equation} 
-	\begin{bmatrix} 
-		d_11 & ... & d_1n \\ 
-		... &   & ... \\ 
-		d_n1 &   & d_nn
-	\end{bmatrix} 
-\end{equation} 
+$$
+\begin{bmatrix} 
+	d_11 & ... & d_1n \\ 
+	... &   & ... \\ 
+	d_n1 &   & d_nn
+\end{bmatrix} 
+$$
