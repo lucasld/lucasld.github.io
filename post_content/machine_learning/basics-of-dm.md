@@ -129,12 +129,33 @@ Note the axioms imply d_{ij} \geq 0
 
 **Remark** In mathematics, the term distance function is used only when these acioms are fulfilled but in ML, distance function will often be used like dissimilarity function and may be applied to quantities that do not match the axioms. To make it crystal clear you mean a distance function fulfilling the axioms, use the term *metric*.
 
-#### Distance matrix
+**Distance matrix:**\
 For a data set $$\{\vec{x_1} ... \vec{x_n}\}$$ all information about distances is assembled in the distance matrix
 $$ D =
 \begin{bmatrix} 
-	d_11 & ... & d_1n \\ 
+	d_{11} & ... & d_{1n} \\ 
 	...  &     & ... \\ 
-	d_n1 & ... & d_nn
-\end{bmatrix} 
+	d_{n1} & ... & d_{nn}
+\end{bmatrix}
 $$
+
+**Similarity matrix:**\
+Distance calculation is motivated from *geometric* distances but in ML, distances are more broadly used to express *similarity*. Similarities of data may be represented by a matrix as well as as distances.
+
+When simlarities are not computed from features of the data, but assigned explicitly from ither sources (e.g., human insight),  similarities may become particularly "non-geometrix".
+
+**Distance functions:**
+Some commin distances for $$\vec{x}, \vec{y} \in \Re^L$$ are:
+1. Euclidean distance: $$d(\vec{x}, \vec{y}) = ||\vec{x}, \vec{y}|| = (\sum_{i=1...L}(x_i - y_i)^2)^{1/2}$$
+    * simple and frequently used measure
+    * no individual weighting of components
+2. Pearson distance: $$d(\vec{x}, \vec{y}) = ||\vec{x}, \vec{y}|| = \sum_{i=1...L}(x_i - y_i)/\sigma_i$$ with standard deviations $$\sigma_i$$
+    * weighted dimensions on their variation from the mean
+    * also called "normalized euclidean distance" or "$$\chi^2$$-distance"
+3. Mahalanobis distance: $$d(\vec{x}, \vec{y}) = ((\vec{x}-\vec{y})^T C^{-1}(\vec{x} - \vec{y})) ^ {1/2}$$
+    * distances scaled using the covariance matrix C
+    * scale and translation invariant
+    * if C is unit matrix: euclidean distance
+    * points of equal Mahalanobis distance to a center form an ellipsoid
+4. Manhatten distance: $$d(\vec{x}, \vec{y}) = \sum_{i=1...L} |\vec{x_i}-\vec{y_i}|$$
+5. Chebyshev distance: $$d(\vec{x}, \vec{y}) = \sum_{i=1...L} |\vec{x_i}-\vec{y_i}|$$
