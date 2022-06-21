@@ -121,9 +121,9 @@ Theoretically our goal is to get relatations between data on the *sematic level*
 
 #### Distance function
 A *distance function* or *metric* **d** must obey the following conditions which are reasonable for *geometric* distances (i, j and k are locations)
-1. Symmetry: $d_{ij} = d_{ji}$
-2. Coincidence axiom: $d_{ij} = 0 \Leftrightarrow i=j$
-3. Triangle equation: d_{ik} + d{kj} \geq d_{ij}
+1. Symmetry: $$d_{ij} = d_{ji}$$
+2. Coincidence axiom: $$d_{ij} = 0 \Leftrightarrow i=j$$
+3. Triangle equation: $$d_{ik} + d{kj} \geq d_{ij}$$
 
 Note the axioms imply d_{ij} \geq 0
 
@@ -144,8 +144,8 @@ Distance calculation is motivated from *geometric* distances but in ML, distance
 
 When simlarities are not computed from features of the data, but assigned explicitly from ither sources (e.g., human insight),  similarities may become particularly "non-geometrix".
 
-**Distance functions:**
-Some commin distances for $$\vec{x}, \vec{y} \in \Re^L$$ are:
+**Distance functions:**\
+Some common distances for $$\vec{x}, \vec{y} \in \Re^L$$ are:
 1. Euclidean distance: $$d(\vec{x}, \vec{y}) = \vert\vert\vec{x}, \vec{y}\vert\vert = (\sum_{i=1...L}(x_i - y_i)^2)^{1/2}$$
     * simple and frequently used measure
     * no individual weighting of components
@@ -160,4 +160,32 @@ Some commin distances for $$\vec{x}, \vec{y} \in \Re^L$$ are:
 4. Manhatten distance: $$d(\vec{x}, \vec{y}) = \sum_{i=1...L} \vert\vec{x_i}-\vec{y_i}\vert$$
 5. Chebyshev distance: $$d(\vec{x}, \vec{y}) = max_{i=1...L} \vert\vec{x_i}-\vec{y_i}\vert$$
 
-**p-norm:**
+**p-norm:**\
+Generalization: $$d(\vec{x}, \vec{y}) = (\sum_{i=1...L}\vert x_i - y_i\vert ^p)^{1/p}
+
+Special cases:
+* $$p = 1$$: $$d(\vec(x), \vec(y)) = \sum_{i=1...L}\vert vec{x_i} - vec{y_i}\vert$$ (city-block)
+* $$p = 2$$: $$d(\vec(x), \vec(y)) = (\sum_{i=1...L}(x_i - y_i)^2)^{1/2}$$  (euclidean)
+* $$p \rightarrow \infty$$: $$d(\vec(x), \vec(y)) = max_{i=1...L} \vert x_i - y_i \vert$$ (maximum)
+
+**Embeddings**
+We need to use a *embedding* if our data uses a different topology than $$\Re^n$$. One example for a other topology are angular attributes:\
+$$\vert\vert 10^○ - 30^○\vert\vert = 20^○$$\
+$$\vert\vert 0^○ - 359^○\vert\vert = 359^○$$\
+
+Nominal Scales:\
+We can map nominal attribute values to real values:\
+$$(low, mwdium, high) \rightarrow (1,2,3)$$ makes sense but\
+$$(stone, wood, metal) \rightarrow (1,2,3)$$ implies an order that is nopt there.
+
+Solution: $$(stone, wood, metal) \rightarrow ((1,0,0)^T, (0,1,0)^T, (0,0,1)^T)$$
+
+Problem: For a large number *n* of attribute values, doimensionality becomes too high.
+
+Solution: Choose normalized random vectors $$v_i\in \Re^m, i=1...n, 1<<m<<n$$ instead. Vectors drawn at random from a space of high dimension tend to be close to orthogonal (why?)
+
+Binary scales:\
+For binary attributes (e.g. small/big, yes/no) use te Jaccard index *J* as a similarity measure which is defined for sets A and B:\
+$$J(A, B) = \vert A \cap B \vert / \vert A \cup B \vert$$ ((# common elements) / (# all elements))
+
+Jaccard distance function: $$J_d(A, B) = 1 - J(A, B)$$
