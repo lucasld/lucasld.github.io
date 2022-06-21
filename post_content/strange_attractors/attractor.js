@@ -18,7 +18,7 @@ attractor = (sketch) => {
 
         var _width = parseInt(style.width.slice(0, -2))
         const canvas = sketch.createCanvas(_width, _width * 0.5, sketch.WEBGL);
-        canvas.parent('sketch-holder')
+        canvas.parent('sketch-attractor')
 
         const body_elem = document.getElementsByClassName('d-flex')[0]
         const body_style = getComputedStyle(body_elem)
