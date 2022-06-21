@@ -22,7 +22,7 @@ Causes for outliers:
 When an outlier was detected, we can either remove it or we replace it. To detect an outlier first we have to define what is regular. Most often we assume the data to be normally distributed. For multivariate data, we can first cluster the data and then assume a normal distribution for each cluster.
 
 **z-test**\
-Outliers of univariate distributions can be detected from **z**-values: $$z_i = |x_i - \mu| / \sigma$$. Here $$z_i$$ is a measure of the distance of $$x_i$$ from the mean $$\mu$$ in terms of the standart deviation $$\sigma$$. Commonly, datapoints with $$z_i > 3$$ are considered outliers.
+Outliers of univariate distributions can be detected from **z**-values: $$z_i = \vertx_i - \mu\vert / \sigma$$. Here $$z_i$$ is a measure of the distance of $$x_i$$ from the mean $$\mu$$ in terms of the standart deviation $$\sigma$$. Commonly, datapoints with $$z_i > 3$$ are considered outliers.
 
 Improvement:\
 Use the median instead of the mean to counter the outliers influence and increase the treshold to 3.5!
@@ -80,25 +80,27 @@ Usage of the **Expectation Maximization** (EM) algorithm to estimate *P(X,Y)* by
 **x** &nbsp;&nbsp;&nbsp; denote all *specified data* (complete and partial data-points)\
 **h** &nbsp;&nbsp;&nbsp; all "*hidden*" (missing values)\
 **$$\theta$$** &nbsp;&nbsp;&nbsp; all *parameters* of the chosen distribution (such as mean and variances for a Gaussian)
-The probability of the known values $$x$$ depends on the distribution (specified by $$\theta$$) $$P(x | \theta)$$. The probability of the hidden values $$h$$ depends on the distribution ($$\theta$$) and on the data $$x$$ so $$P(h | x, \theta)$$.\
-Thus the total distribution is defined as $$P(x, h |\theta) = P(h|x, \theta) * P(x|\theta)$$
 
-The **likelihood** of parameters $$\theta$$ as a function of $$x$$ and $$h$$ is $$L(\theta; x,h) = P(x, h| \theta)$$
 
-For convenience, we consider the **log-likelihood** instead: $$I(\theta) = \log L(\theta; x,h) = \log P(h |x, \theta) + \log P(x|\theta)$$
+The probability of the known values $$x$$ depends on the distribution (specified by $$\theta$$) $$P(x\vert\theta)$$ . The probability of the hidden values $$h$$ depends on the distribution ($$\theta$$) and on the data $$x$$ so $$P(h \vert x, \theta)$$.\
+Thus the total distribution is defined as $$P(x, h \vert\theta) = P(h\vert x, \theta) * P(x\vert\theta)$$
+
+The **likelihood** of parameters $$\theta$$ as a function of $$x$$ and $$h$$ is $$L(\theta; x,h) = P(x, h\vert \theta)$$
+
+For convenience, we consider the **log-likelihood** instead: $$I(\theta) = \log L(\theta; x,h) = \log P(h \vert x, \theta) + \log P(x\vert\theta)$$
 
 We want the parameters $$\theta$$ that maximize the log-likelihood $$I(\theta)$$.
 
-We get the $$l(\theta) = \log P(x,h,\theta) = \log P(h | x, \theta) + \log P(x | \theta)$$ by:
+We get the $$l(\theta) = \log P(x,h,\theta) = \log P(h \vert x, \theta) + \log P(x \vert \theta)$$ by:
 * removing the hidden values *h* by "avering out" to obtain an averaged $$<l(0)>_h$$
-* to do so, we need the probability $$P(h | x, \theta)$$, here we need an estimate $$\theta_t$$ fot the real $$\theta$$
+* to do so, we need the probability $$P(h \vert x, \theta)$$, here we need an estimate $$\theta_t$$ fot the real $$\theta$$
 
 We use an iterative approach to improve our estimate $$\theta_t$$ (**M-step**) and averaring over *h* using the obtained $$\theta_t$$ (**E-step**). \theta _t will converge to a local maximum $$\theta^\star$$ of *l* (hopefully close to $$\theta$$)
 
-Thus we  maximize the averaged likelihood $$Q(\theta, \theta_t) = <l(\theta)>_h = \int P(h|x,\theta_t)*\log P(h|x, \theta)\mathrm{d}h + \log P(x|\theta)$$ so we have *traded* the h-dependence of l for a $$\theta_t$$-dependence of Q.
+Thus we  maximize the averaged likelihood $$Q(\theta, \theta_t) = <l(\theta)>_h = \int P(h\vert x,\theta_t)*\log P(h\vert x, \theta)\mathrm{d}h + \log P(x\vert\theta)$$ so we have *traded* the h-dependence of l for a $$\theta_t$$-dependence of Q.
 
 ```python
-choose function to approximate P(x,y|theta) woth parameters theta
+choose function to approximate P(x,y | theta) woth parameters theta
 choose start values theta_t
 t = 0  # step counter
 while True:
@@ -144,10 +146,10 @@ When simlarities are not computed from features of the data, but assigned explic
 
 **Distance functions:**
 Some commin distances for $$\vec{x}, \vec{y} \in \Re^L$$ are:
-1. Euclidean distance: $$d(\vec{x}, \vec{y}) = ||\vec{x}, \vec{y}|| = (\sum_{i=1...L}(x_i - y_i)^2)^{1/2}$$
+1. Euclidean distance: $$d(\vec{x}, \vec{y}) = \vert\vert\vec{x}, \vec{y}\vert\vert = (\sum_{i=1...L}(x_i - y_i)^2)^{1/2}$$
     * simple and frequently used measure
     * no individual weighting of components
-2. Pearson distance: $$d(\vec{x}, \vec{y}) = ||\vec{x}, \vec{y}|| = \sum_{i=1...L}(x_i - y_i)/\sigma_i$$ with standard deviations $$\sigma_i$$
+2. Pearson distance: $$d(\vec{x}, \vec{y}) = \vert\vert\vec{x}, \vec{y}\vert\vert = \sum_{i=1...L}(x_i - y_i)/\sigma_i$$ with standard deviations $$\sigma_i$$
     * weighted dimensions on their variation from the mean
     * also called "normalized euclidean distance" or "$$\chi^2$$-distance"
 3. Mahalanobis distance: $$d(\vec{x}, \vec{y}) = ((\vec{x}-\vec{y})^T C^{-1}(\vec{x} - \vec{y})) ^ {1/2}$$
@@ -155,7 +157,7 @@ Some commin distances for $$\vec{x}, \vec{y} \in \Re^L$$ are:
     * scale and translation invariant
     * if C is unit matrix: euclidean distance
     * points of equal Mahalanobis distance to a center form an ellipsoid
-4. Manhatten distance: $$d(\vec{x}, \vec{y}) = \sum_{i=1...L} |\vec{x_i}-\vec{y_i}|$$
-5. Chebyshev distance: $$d(\vec{x}, \vec{y}) = max_{i=1...L} |\vec{x_i}-\vec{y_i}|$$
+4. Manhatten distance: $$d(\vec{x}, \vec{y}) = \sum_{i=1...L} \vert\vec{x_i}-\vec{y_i}\vert$$
+5. Chebyshev distance: $$d(\vec{x}, \vec{y}) = max_{i=1...L} \vert\vec{x_i}-\vec{y_i}\vert$$
 
 **p-norm:**
