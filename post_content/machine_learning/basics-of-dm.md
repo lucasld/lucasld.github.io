@@ -170,8 +170,8 @@ Special cases:
 
 **Embeddings**
 We need to use a *embedding* if our data uses a different topology than $$\Re^n$$. One example for a other topology are angular attributes:\
-$$\vert\vert 10^○ - 30^○\vert\vert = 20^○$$\
-$$\vert\vert 0^○ - 359^○\vert\vert = 359^○$$\
+$$\vert\vert 10^• - 30^•\vert\vert = 20^•$$\
+$$\vert\vert 0^• - 359^•\vert\vert = 359^•$$\
 
 Nominal Scales:\
 We can map nominal attribute values to real values:\
