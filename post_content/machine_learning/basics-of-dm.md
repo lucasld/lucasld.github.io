@@ -130,11 +130,11 @@ Note the axioms imply d_{ij} \geq 0
 **Remark** In mathematics, the term distance function is used only when these acioms are fulfilled but in ML, distance function will often be used like dissimilarity function and may be applied to quantities that do not match the axioms. To make it crystal clear you mean a distance function fulfilling the axioms, use the term *metric*.
 
 #### Distance matrix
-For a data set $$\{\vec{x_1} ... \vec{x_n}$$ all information about distances is assembled in the distance matrix **D**
-$$
+For a data set $$\{\vec{x_1} ... \vec{x_n}\}$$ all information about distances is assembled in the distance matrix
+$$ D =
 \begin{bmatrix} 
 	d_11 & ... & d_1n \\ 
-	... &   & ... \\ 
-	d_n1 &   & d_nn
+	...  &     & ... \\ 
+	d_n1 & ... & d_nn
 \end{bmatrix} 
 $$
