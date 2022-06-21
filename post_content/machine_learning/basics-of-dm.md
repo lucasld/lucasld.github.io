@@ -81,23 +81,23 @@ Usage of the **Expectation Maximization** (EM) algorithm to estimate *P(X,Y)* by
 **h** &nbsp;&nbsp;&nbsp; all "*hidden*" (missing values)\
 **$$\theta$$** &nbsp;&nbsp;&nbsp; all *parameters* of the chosen distribution (such as mean and variances for a Gaussian)
 
-The probability of the known values $$x$$ depends on the distribution (specified by $$\theta$$) $$P(x \| \theta)$$. The probability of the hidden values $$h$$ depends on the distribution ($$\theta$$) and on the data $$x$$ so $$P(h \| x, \theta)$$.
+The probability of the known values $$x$$ depends on the distribution (specified by $$\theta$$) $$P(x | \theta)$$. The probability of the hidden values $$h$$ depends on the distribution ($$\theta$$) and on the data $$x$$ so $$P(h | x, \theta)$$.
 
-Thus the total distribution is defined as $$P(x, h \|\theta) = P(h\|x, \theta) * P(x\|\theta)$$
+Thus the total distribution is defined as $$P(x, h |\theta) = P(h|x, \theta) * P(x|\theta)$$
 
-The **likelihood** of parameters $$\theta$$ as a function of $$x$$ and $$h$$ is $$L(\theta; x,h) = P(x, h\| \theta)$$
+The **likelihood** of parameters $$\theta$$ as a function of $$x$$ and $$h$$ is $$L(\theta; x,h) = P(x, h| \theta)$$
 
-For convenience, we consider the **log-likelihood** instead: $$I(\theta) = \log L(\theta; x,h) = \log P(h \|x, \theta) + \log P(x\|\theta)$$
+For convenience, we consider the **log-likelihood** instead: $$I(\theta) = \log L(\theta; x,h) = \log P(h |x, \theta) + \log P(x|\theta)$$
 
 We want the parameters $$\theta$$ that maximize the log-likelihood $$I(\theta)$$.
 
-We get the $$l(\theta) = \log P(x,h,\theta) = \log P(h \| x, \theta) + \log P(x \| \theta)$$ by:
+We get the $$l(\theta) = \log P(x,h,\theta) = \log P(h | x, \theta) + \log P(x | \theta)$$ by:
 * removing the hidden values *h* by "avering out" to obtain an averaged $$<l(0)>_h$$
-* to do so, we need the probability $$P(h \| x, \theta)$$, here we need an estimate $$\theta_t$$ fot the real $$\theta$$
+* to do so, we need the probability $$P(h | x, \theta)$$, here we need an estimate $$\theta_t$$ fot the real $$\theta$$
 
 We use an iterative approach to improve our estimate $$\theta_t$$ (**M-step**) and averaring over *h* using the obtained $$\theta_t$$ (**E-step**). \theta _t will converge to a local maximum $$\theta^\star$$ of *l* (hopefully close to $$\theta$$)
 
-Thus we  maximize the averaged likelihood $$Q(\theta, \theta_t) = <l(\theta)>_h = \int P(h\|x,\theta_t)*\log P(h\|x, \theta)\mathrm{d}h + \log P(x\|\theta)$$ so we have *traded* the h-dependence of l for a $$\theta_t$$-dependence of Q.
+Thus we  maximize the averaged likelihood $$Q(\theta, \theta_t) = <l(\theta)>_h = \int P(h|x,\theta_t)*\log P(h|x, \theta)\mathrm{d}h + \log P(x|\theta)$$ so we have *traded* the h-dependence of l for a $$\theta_t$$-dependence of Q.
 
 ```python
 choose function to approximate P(x,y|theta) woth parameters theta
@@ -113,4 +113,29 @@ while True:
         break
 ```
 
+#### EM-Algorithm 2D-Visualization
+.....
 
+### Similarity measures
+Theoretically our goal is to get relatations between data on the *sematic level*, in particular, *similarity* / *dissimilarity*. In practice we try to approximate semantic relations with numerical measures, in particular, *distance functions/metrics*.
+
+#### Distance function
+A *distance function* or *metric* **d** must obey the following conditions which are reasonable for *geometric* distances (i, j and k are locations)
+1. Symmetry: $d_{ij} = d_{ji}$
+2. Coincidence axiom: $d_{ij} = 0 \Leftrightarrow i=j$
+3. Triangle equation: d_{ik} + d{kj} \geq d_{ij}
+
+Note the axioms imply d_{ij} \geq 0
+
+**Remark** In mathematics, the term distance function is used only when these acioms are fulfilled but in ML, distance function will often be used like dissimilarity function and may be applied to quantities that do not match the axioms. To make it crystal clear you mean a distance function fulfilling the axioms, use the term *metric*.
+
+#### Distance matrix
+For a data set $$\{\vec{x_1} ... \vec{x_n}$$ all information about distances is assembled in the distance matrix **D**
+
+\begin{equation} 
+	\begin{bmatrix} 
+		d_11 & ... & d_1n \\ 
+		... &   & ... \\ 
+		d_n1 &   & d_nn
+	\end{bmatrix} 
+\end{equation} 
