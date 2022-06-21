@@ -91,5 +91,26 @@ For convenience, we consider the **log-likelihood** instead: $$I(\theta) = \log 
 
 We want the parameters $$\theta$$ that maximize the log-likelihood $$I(\theta)$$.
 
+We get the $$l(\theta) = \log P(x,h,\theta) = \log P(h \| x, \theta) + \log P(x \| \theta)$$ by:
+* removing the hidden values *h* by "avering out" to obtain an averaged $$<l(0)>_h$$
+* to do so, we need the probability $$P(h \| x, \theta)$$, here we need an estimate $$\theta_t$$ fot the real $$\theta$$
+
+We use an iterative approach to improve our estimate $$\theta_t$$ (**M-step**) and averaring over *h* using the obtained $$\theta_t$$ (**E-step**). \theta _t will converge to a local maximum $$\theta^\star$$ of *l* (hopefully close to $$\theta$$)
+
+Thus we  maximize the averaged likelihood $$Q(\theta, \theta_t) = <l(\theta)>_h = \int P(h\|x,\theta_t)*\log P(h\|x, \theta)\mathrm{d}h + \log P(x\|\theta)$$ so we have *traded* the h-dependence of l for a $$\theta_t$$-dependence of Q.
+
+```python
+choose function to approximate P(x,y|theta) woth parameters theta
+choose start values theta_t
+t = 0  # step counter
+while True:
+    # E-step
+    Q_theta_theta_t = integral function from above
+    # M-step
+    theta_t = argmax_theta(Q_theta_theta_t)
+    t += 1
+    if Q_theta_theta_t meets convergence condition:
+        break
+```
 
 
