@@ -45,13 +45,58 @@ while n>2:
     n -= 1
 ```
 
-*Single linkage clustering* employs the minimum cluster distance.\
-*Complete linkage clustering* employs the maximum cluster distance.\
-Single linkage clustering tends to chaining and complete linkage clustering prefers compact clusters. We can also use *average linkage clustering* or *UPGMA* (Unweighted Pair Group Method with Arithmetic mean). In *centroid clustering* centroid distance is used. Here real valued attributes are required for the centroid computation. Also, when joining two clusters, the resulting centroid is dominated by the cluster with more members.
+**Single linkage clustering** employs the minimum cluster distance.\
+**Complete linkage clustering** employs the maximum cluster distance.\
+Single linkage clustering tends to chaining and complete linkage clustering prefers compact clusters. We can also use **average linkage clustering** or *UPGMA* (Unweighted Pair Group Method with Arithmetic mean). In **centroid clustering** centroid distance is used. Here real valued attributes are required for the centroid computation. Also, when joining two clusters, the resulting centroid is dominated by the cluster with more members.
 
-*Ward's minimum variance clustering:* Merge the pair of clusters for which the increase in total variance is mimized.
-$$E = \sum_i \sum_{\vec{x}\in C_i} (\vec{x} - \vec{\mu_i})^2$$, $$\vec{\mu_i} = 1/{\vert C_i \vert} \sum_{\vec{x}\in C_i}\vec{x}$$
+**Ward's minimum variance clustering:**\
+Merge the pair of clusters for which the increase in total variance is mimized.\
+$$E = \sum_i \sum_{\vec{x}\in C_i} (\vec{x} - \vec{\mu_i})^2$$\
+$$\vec{\mu_i} = 1/{\vert C_i \vert} \sum_{\vec{x}\in C_i}\vec{x}$$\
+In contrast to the previous approaches, this one is *optimization based*. It can also be implemented by a distance measure:\
+$$D_{ward} = D_{centroid}(X, Y) / (1/{\vert X \vert} + 1/{\vert Y \vert})$$\
+Propoerties:
+- prefers spherical clusters and clusters of similar size
+- robust against noise but not against outliers
+
+**Properties of hierachical clustering**\
+- any distance measure can be used
+- we need only the distance matrix (not the data)
+- no parameters
+- efficency:
+    * agglomerative: $$O(n^3)$$ in naive approach, $$O(n^2)$$ SLINK-algorithm
+    * divisive: $$O(2^n)$$ in naive approach, $$O(n^2)$$ CLINK-algorithm
+    * in general, efficeny can be increased by avoiding unnecessary re-computation of distances
+- resulting dendrogram offers alternative clusterings
+- dendrogram needs to analyzed
+- cut off at different levels of dendrogram may be necessary to get comparable clusters
+- outliers are fully incorporated
+
+
 ### Optimization based clustering
+The idea of optimization based clustering is to maximize some kind "goodness function" which assigns a "goodness value" to any partioning of the data.
+
+**Basic maximization algorithm:**
+```python
+C = somehow partition data into clusters C_1...C_n
+while not stop_condition():
+    choose an example datapoint x at random, denote its clister as C(x)
+    select a random target cluster C_i
+    ∆E = change of the goodness function = E(x in C_i) - E(x in C(x))
+    if ∆E > 0:
+        put x from C(x) to C_i
+    else:
+        put x from C(x) to C_i with probability exp(β∆E)
+    increase β
+```
+- may be caught on local maxima
+- dependence on intial partioning
+- to escape local maxima, downhill steps are accepted with probability exp(β∆E)
+- initially small β allows frequent downhill steps
+- increasing β makes downhill steps less likely until the process "freezes" (simulated annealing)
+
+
+
 
 ### Compression by clustering
 
