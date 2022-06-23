@@ -2,8 +2,6 @@
 layout: post
 title: Machine Learning - Basics of Data Mining
 ---
-
-
 ### Data Preprocessing
 There are several problems which make data preprocessing necessary.
 1. Data Format\
@@ -22,7 +20,7 @@ Causes for outliers:
 When an outlier was detected, we can either remove it or we replace it. To detect an outlier first we have to define what is regular. Most often we assume the data to be normally distributed. For multivariate data, we can first cluster the data and then assume a normal distribution for each cluster.
 
 **z-test**\
-Outliers of univariate distributions can be detected from **z**-values: $$z_i = \vertx_i - \mu\vert / \sigma$$. Here $$z_i$$ is a measure of the distance of $$x_i$$ from the mean $$\mu$$ in terms of the standart deviation $$\sigma$$. Commonly, datapoints with $$z_i > 3$$ are considered outliers.
+Outliers of univariate distributions can be detected from **z**-values: $$z_i = \vert x_i - \mu\vert / \sigma$$. Here $$z_i$$ is a measure of the distance of $$x_i$$ from the mean $$\mu$$ in terms of the standart deviation $$\sigma$$. Commonly, datapoints with $$z_i > 3$$ are considered outliers.
 
 Improvement:\
 Use the median instead of the mean to counter the outliers influence and increase the treshold to 3.5!
