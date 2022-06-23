@@ -2,13 +2,12 @@
 layout: post
 title: Machine Learning - Basics of Data Mining
 ---
-### Data Preprocessing
 There are several problems which make data preprocessing necessary.
 1. Data Format\
     This can be very difficult as data representation can differ stronly and conversion between different representations can not be generalized but has to be solved problem specific
 2. Outliers and Missing Values
 
-#### Outliers
+### Outliers
 The problem is that outliers can spoil our statisitcs. Taking the mean of a small dataset with extreme outliers will lead to a strong shift --> consider replacing the mean by the median.
 
 Causes for outliers:
@@ -16,7 +15,7 @@ Causes for outliers:
 2. Unexpected "true" effect
 3. data with high variation - outliers are a natural part of the distribution
 
-##### Outlier detection
+#### Outlier detection
 When an outlier was detected, we can either remove it or we replace it. To detect an outlier first we have to define what is regular. Most often we assume the data to be normally distributed. For multivariate data, we can first cluster the data and then assume a normal distribution for each cluster.
 
 **z-test**\
@@ -39,7 +38,7 @@ while True:
 
 Once we detected our outliers we have to handle them. One option is to simply *remove* them. This results in information loss and therefore we should consider to *replace* or *weight* the outliers instead.
 
-#### Missing values
+### Missing values
 Missing values pose a major problem as they can make most of our data unusable if no measure is taken.
 
 Imagine that a datapoint consists of 100 elements. If the probability that a value is missing is $$p=2\%$$ then the probability that the vector is complete and therefore usable is $$(1 - p)^{100} = 13\%$$. If we don't do anything we wont be able to use $$87\%$$ of the data!
@@ -114,10 +113,10 @@ while True:
 #### EM-Algorithm 2D-Visualization
 .....
 
-### Similarity measures
+
+### Distance function
 Theoretically our goal is to get relatations between data on the *sematic level*, in particular, *similarity* / *dissimilarity*. In practice we try to approximate semantic relations with numerical measures, in particular, *distance functions/metrics*.
 
-#### Distance function
 A *distance function* or *metric* **d** must obey the following conditions which are reasonable for *geometric* distances (i, j and k are locations)
 1. Symmetry: $$d_{ij} = d_{ji}$$
 2. Coincidence axiom: $$d_{ij} = 0 \Leftrightarrow i=j$$

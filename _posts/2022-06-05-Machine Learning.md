@@ -37,6 +37,16 @@ decision-trees:
     -
         name: "extensions-of-id3"
         name_value: "Extensions of ID3"
+basics-of-dm:
+    -
+        name: "outliers"
+        name_value: "Outliers"
+    -
+        name: "missing-values"
+        name_value: "Missing Value"
+    -
+        name: "distance-function"
+        name_value: "Distance Function"
 ---
 
 Here I write about some techniques to make machines learn from data.
@@ -53,6 +63,9 @@ Here I write about some techniques to make machines learn from data.
     * <a href="{{ site.baseurl }}{% link post_content/machine_learning/decision-trees.md %}#{{subchapter.name}}">{{ subchapter.name_value }}</a>
     {% endfor %}
 - [Basics of Data Mining]({{ site.baseurl }}{% link post_content/machine_learning/basics-of-dm.md %})
+    {% for subchapter in page.basics-of-dm %}
+    * <a href="{{ site.baseurl }}{% link post_content/machine_learning/basics-of-dm.md %}#{{subchapter.name}}">{{ subchapter.name_value }}</a>
+    {% endfor %}
 - [Clustering]({{ site.baseurl }}{% link post_content/machine_learning/clustering.md %})
 - [Dimensionality Reduction]({{ site.baseurl }}{% link post_content/machine_learning/dimension-reduction.md %})
 - [Neural Networks]({{ site.baseurl }}{% link post_content/machine_learning/neural-networks.md %})
