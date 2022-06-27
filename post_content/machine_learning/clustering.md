@@ -96,9 +96,9 @@ while not stop_condition():
 - increasing β makes downhill steps less likely until the process "freezes" (simulated annealing)
 
 
-
-
 ### Compression by clustering
+
+
 
 ### K-means clustering
 
