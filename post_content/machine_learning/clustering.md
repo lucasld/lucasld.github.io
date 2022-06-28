@@ -5,16 +5,16 @@ title: Machine Learning - Clustering
 Why would we want to cluster data? For one, clusters in some feature space may indicate closeness of data on a semantic level. Also, clusters allow us to compress data as it sufficies to only transmit cluster centers instead of the data belonging to the clusters.
 ### Distance measures
 There are ceveral options to measure the distance between clusters. For clusters $$X$$ and $$Y$$ you might use:
-* $$D_min(X, Y) = min_{\vec{x}\in X, \vec{y}\in Y}d(\vec{x}, \vec{y})$$ this is the mimimum difference
-* $$D_max(X, Y) = max_{\vec{x}\in X, \vec{y}\in Y}d(\vec{x}, \vec{y})$$ this is the maximum difference
-* $$D_mean(X, Y) = 1/{\vert X \vert \vert Y \vert}\sum{\vec{x}\in X, \vec{y}\in Y}d(\vec{x}, \vec{y})$$ mean of all distances
-* $$D_centroid(X, Y) = d(1/{\vert X \vert} \sum_{\vec{x}\in X} \vec{x}, 1/{\vert Y \vert} \sum_{\vec{y}\in Y})$$ distance between cluster centers
+* $$D_{min}(X, Y) = min_{\vec{x}\in X, \vec{y}\in Y}d(\vec{x}, \vec{y})$$ this is the mimimum difference
+* $$D_{max}(X, Y) = max_{\vec{x}\in X, \vec{y}\in Y}d(\vec{x}, \vec{y})$$ this is the maximum difference
+* $$D_{mean}(X, Y) = 1/{\vert X \vert \vert Y \vert}\sum{\vec{x}\in X, \vec{y}\in Y}d(\vec{x}, \vec{y})$$ mean of all distances
+* $$D_{centroid}(X, Y) = d(1/{\vert X \vert} \sum_{\vec{x}\in X} \vec{x}, 1/{\vert Y \vert} \sum_{\vec{y}\in Y})$$ distance between cluster centers
 
 Given a data distribution, it is not clear what clusters an algorithm should find. The definition of clusters depends on scale.
 
 
 ### Bias in clustering
-All clustering algorithm have some kind of bias:\
+All clustering algorithm have some kind of bias:
 * a certain cluster model is prefered
 * the model comprises scale and shape of clusters
 * usually bias is an implicit part of the algorithm
@@ -24,7 +24,7 @@ All clustering algorithm have some kind of bias:\
 
 
 ### Hierarchical clustering
-There are two complementary methods:\
+There are two complementary methods:
 * Agglomerative clustering:
     - start with each data point as a cluster
     - **merge** clusters recursively top down
@@ -51,8 +51,8 @@ Single linkage clustering tends to chaining and complete linkage clustering pref
 
 **Ward's minimum variance clustering:**\
 Merge the pair of clusters for which the increase in total variance is mimized.\
-$$E = \sum_i \sum_{\vec{x}\in C_i} (\vec{x} - \vec{\mu_i})^2$$\
-$$\vec{\mu_i} = 1/{\vert C_i \vert} \sum_{\vec{x}\in C_i}\vec{x}$$\
+$$E = \sum_i \sum_{\vec{x} \in C_i} (\vec{x} - \vec{\mu_i})^2$$\
+$$\vec{\mu_i} = 1/{\vert C_i \vert} \sum_{\vec{x} \in C_i}\vec{x}$$\
 In contrast to the previous approaches, this one is *optimization based*. It can also be implemented by a distance measure:\
 $$D_{ward} = D_{centroid}(X, Y) / (1/{\vert X \vert} + 1/{\vert Y \vert})$$\
 Propoerties:
@@ -105,7 +105,9 @@ Given a data set $$D = \{ \vec{x_1}, \vec{x_2}, ...\}$$ of d-dimensional vectors
 ### K-means clustering
 The term [K-means clustering](https://en.wikipedia.org/wiki/K-means_clustering) was termed by James McQueen in 1967 though the idea goes back to Hugo Steinhause 1956.
 
-The algorithm works by first dividing $$D$$ into clusters $$C_1 ... C_K$$ which are represented by their K centers of gravity (means) $$\vec{w_1} ... \vec{w_K}$$. The algorithm minimizes the qudratic error measure: $$E(D, \{\vec{w_i}\} = 1/{|D|} \sum_{i=1...|D|}\|\vec{x_i} - \vec{w_{m(\vec{x_i})}}\|^2$$.
+The algorithm works by first dividing $$D$$ into clusters $$C_1 ... C_K$$ which are represented by their K centers of gravity (means) $$\vec{w_1} ... \vec{w_K}$$.
+
+The algorithm minimizes the qudratic error measure: $$E(D, \{\vec{w_i}\} = 1/{|D|} \sum_{i=1...|D|}\|\vec{x_i} - \vec{w_{m(\vec{x_i})}}\|^2$$.
 
 Iterative K-means clustering:
 1. start with randomly chosen reference vectors
