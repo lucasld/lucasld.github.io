@@ -97,11 +97,51 @@ while not stop_condition():
 
 
 ### Compression by clustering
-
+Given a data set $$D = \{ \vec{x_1}, \vec{x_2}, ...\}$$ of d-dimensional vectors $$\vec{x_i} \in \Re^d$$. The number of bits per data point depends on d and the required precision (and the statistics of the distribution). A cluster algorithm will yield a number $$K < |D|$$ of *cluster centers* $$\vec{w_j}\in\Re^d$$ (also called nodes, refrence vectors or codewords). A data vector $$\vec{x_i}$$ can now be approximated by its *best match* cluster center $$\vec{w_m}$$ where $$m(\vec{x_i}) = argmin_j \|\vec{x_i} - \vec{w_j}\|$$. This means that we have to transmit $${\vec{w_i}}$$ once and after that only the number of the best match cluster center.\
+- small **K**: high compression ratio, bad approximation
+- large **K**: low compression ration, good approximation
 
 
 ### K-means clustering
+The term [K-means clustering](https://en.wikipedia.org/wiki/K-means_clustering) was termed by James McQueen in 1967 though the idea goes back to Hugo Steinhause 1956.
+
+The algorithm works by first dividing $$D$$ into clusters $$C_1 ... C_K$$ which are represented by their K centers of gravity (means) $$\vec{w_1} ... \vec{w_K}$$. The algorithm minimizes the qudratic error measure: $$E(D, \{\vec{w_i}\} = 1/{|D|} \sum_{i=1...|D|}\|\vec{x_i} - \vec{w_{m(\vec{x_i})}}\|^2$$.
+
+Iterative K-means clustering:
+1. start with randomly chosen reference vectors
+2. assign all of the data to best match refrence vectors
+3. update reference vectors by shifting them to the mean/center of their cluster
+4. *stop* if cluster centers have moved no more than $$\epsilon$$, else goto 2
+
+```python
+D = data set
+t = 0
+create K reference vectors w chosen randomly within a suitable bounding box in 'R^d'
+C = list to store clusters
+while some w_k has moved more than epsilon:
+    for k in range(1, K):
+        add cluster container to C
+    for x in D:
+        k = cluster k with x has the smallest distance to (distance from x to w_k)
+        add x to C[k]
+    t += 1
+    for k in range(1, K):
+        w_k = mean of all points in C_k
+```
+
+The number of clusters K implicitly defines scale and resulting shape of the clusters. K-means optimizes greedily and therefore can end up in a local optima. The kind of optima we end up in depends on the intial condition (cluster centers).
+
+#### K-means clustering for color compression
+In a digital image colors can be represented as RGB-colors encoded by 3x8 bit if not compressed. This makes $$2^{3*8} = 16,7 Mio$$ different colors. Reducing this number to K prototypic colors and replacing the original colors with these prototypical colors enables us to drastically cut down on bits to transmit. A data vector $$\vec{x_i} \in \Re^3$$ os the color triple of pixel number i. The cluster centers $$\vec{w_i} \in \Re^3$$ are the prototypic colors. 
+
+**(?P5-Visualisation?)**
 
 ### Soft clustering
+So far we described clusters as sets of data points or by their centers which means that they where disjoint. This is called **hard clustering** because each data point is assigned to a single cluster. There is no way to express uncertainty about the assignment to a cluster.
+
+When clustering softly we assign a data point to a cluster by probabilities. This allows us to express uncertainty about the assignment or gradual assignment. Clusters do not have hard boundaries. We will assign **gaussians** to each cluster center.
+
+The probability density of the data distribution $$D = \{\vec{x_1}, \vec{x_2}, ...\}, \vec{x_i} \in \Re^d$$ is a linear superposition of K Gaussians: $$P(\vec{x}) = \sum_{k=1...K}g_k N(\vec{x}, \vec{\mu_k}, C_k)$$ where $$N(.,.,.)$$ is a Gaussian with mean $$\vec{\mu}$$ and covariance matrix $$C$$. The "amplitude" assigned to a Gaussian centred at $$\vec{\mu}$$ is $$g_k$$, which is the a prioiri probability that a data point belongs to cluster $$k$$.\
+So $$0 \seq g_k \seq 1$$ and $$\sum_{k=1...K}g_k = 1$$ must hold.
 
 ### Conceptual clustering: Cobweb
