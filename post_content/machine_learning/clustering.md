@@ -142,8 +142,13 @@ So far we described clusters as sets of data points or by their centers which me
 When clustering softly we assign a data point to a cluster by probabilities. This allows us to express uncertainty about the assignment or gradual assignment. Clusters do not have hard boundaries. We will assign **gaussians** to each cluster center.
 
 The probability density of the data distribution $$D = \{\vec{x_1}, \vec{x_2}, ...\}, \vec{x_i} \in \Re^d$$ is a linear superposition of K Gaussians: $$P(\vec{x}) = \sum_{k=1...K}g_k N(\vec{x}, \vec{\mu_k}, C_k)$$ where $$N(.,.,.)$$ is a Gaussian with mean $$\vec{\mu}$$ and covariance matrix $$C$$. The "amplitude" assigned to a Gaussian centred at $$\vec{\mu}$$ is $$g_k$$, which is the a prioiri probability that a data point belongs to cluster $$k$$.\
-So $$0 \seq g_k \seq 1$$ and $$\sum_{k=1...K}g_k = 1$$ must hold.
+So $$0 \leq g_k \leq 1$$ and $$\sum_{k=1...K}g_k = 1$$ must hold.
 
+If we want to generate a data point according to $$P(\vec{x}) = \sum_{k=1...K}g_k N(\vec{x}, \vec{\mu_k}, C_k)$$ then we could either:
+- regard $$P(\vec{x})$$ as a whole
+- first select one of the Gaussians with probability $$g_k$$, then generate a random $$\vec{x}$$ with probability $$N(\vec{x}, \vec{\mu_k}, C_k)$$.
 
+Lets look at the latter option. The prior (a priori probability) that an example drawn at random from $$D$$ belongs to cluster $$k$$ is $$g_k$$. The a posteriori probability that a given data point $$\vec{x}$$ belongs to cluster $$k$$ is $$P^{*}_{k}(\vec{x}) = g_k N(\vec{x}, \vec{\mu_k}, C_k) / \sum_{k=1...K}g_k N(\vec{x}, \vec{\mu_k}, C_k)$$.
+To find the best mixture of $$K$$ Gaussians to fot a given data set D, the parameters $$\{ g_k, \vec{\mu_k}, C_k \}$$ must be found by the EM-algorithm. The derivation of the procesdure is left out here because the constraint $$\sum_{k=1...K}g_k = 1$$ requires the Lagrange multiplier method. 
 
 ### Conceptual clustering: Cobweb
