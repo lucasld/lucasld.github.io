@@ -149,6 +149,58 @@ If we want to generate a data point according to $$P(\vec{x}) = \sum_{k=1...K}g_
 - first select one of the Gaussians with probability $$g_k$$, then generate a random $$\vec{x}$$ with probability $$N(\vec{x}, \vec{\mu_k}, C_k)$$.
 
 Lets look at the latter option. The prior (a priori probability) that an example drawn at random from $$D$$ belongs to cluster $$k$$ is $$g_k$$. The a posteriori probability that a given data point $$\vec{x}$$ belongs to cluster $$k$$ is $$P^{*}_{k}(\vec{x}) = g_k N(\vec{x}, \vec{\mu_k}, C_k) / \sum_{k=1...K}g_k N(\vec{x}, \vec{\mu_k}, C_k)$$.
-To find the best mixture of $$K$$ Gaussians to fot a given data set D, the parameters $$\{ g_k, \vec{\mu_k}, C_k \}$$ must be found by the EM-algorithm. The derivation of the procesdure is left out here because the constraint $$\sum_{k=1...K}g_k = 1$$ requires the Lagrange multiplier method. 
+To find the best mixture of $$K$$ Gaussians to fot a given data set D, the parameters $$\{ g_k, \vec{\mu_k}, C_k \}$$ must be found by the EM-algorithm. The derivation of the procesdure is left out here because the constraint $$\sum_{k=1...K}g_k = 1$$ requires the Lagrange multiplier method.
+
+#### EM for a mixture of Gaussians
+```python
+K = number of Gaussians
+t = 0  # step counter
+choose initial values {g_k(0), mu_k(0), C_k(0)}
+while not stop_condition():
+    # Expectation step (E-step)
+    P_k(t+1, x) = g_k(t) N(x, mu_k(t), C_k(t)) / sum(g_i(t)N(x, mu_i(t), C_i(t) for i in range(K)))
+    # Maximization step (M-step)
+    N_k = sum(P_k(t+1, x) for i in range(len(D)))
+    g_k(t+1) = N_k/len(D)
+    mu_k(t+1) = 1/N_k * sum(P_k(t+1, x_i) * x_i for i in range(D))
+    C_k(t+1) = 1/N_k * sum(P_k(t+1, x)*(x_i - mu_k(t+1))*(x_i - mu_k(t+1))**T for i in range(len(D)))
+    t+=1
+```
+The EM-algorithm yields only local optimum. It is computationally much more expensive than K-means. Also measures have to be taken so that a gaussian doesn't collapse on a single data point. K-means can provide useful intialization for $$\vec{\mu_k}$$ and local PCA for $$C_k$$.
+
+It is difficult to say wether an achieved clustering is good. We may test on different data subsets to check if a clustering is robust? We might also check the distribution of averaged distances in k-neighbor clusters or we compare *intra-cluster* distances (distances of data to cluster center) and *inter-cluster* distances (distances between cluster centers).
+
+**(?P5-Visualisation?)**
 
 ### Conceptual clustering: Cobweb
+*Supervised classification:*
+- pre-defined classes
+- example set of pairs (object, class)
+
+*Unsupervised classification:*
+- classes are not fixed a priori
+- classes (also: categories, concepts) are formed from th examples
+- examples are sorted into the formed categories
+- bias of the system lies in the preferences of categoriy formation
+
+Conceptual clustering is a paradigm of unsupervised classificaiton. It's distinguishing property is that it generates a concept description for each generated class.
+
+Cobweb (Fisher 1987) is the most well knwon algorithm for conceptual clustering. Its partly motivated by some drawbacks of ID3:
+- continous attributes require thresholding
+- no flexibility in case of errors
+- disjoint learning phase (building the tree) and application phase (classifying data) are unnatural
+- each learning step divides data only along one dimension of the attribute space
+- defines categories by propositional logic
+
+Ideas that make up COBWEB:
+- unsupervised learning
+- incremental learning, no separation of training and test phase
+- probabilitstic representation: gradual assignment of objects to categories
+- no a priori fixed number of categories
+
+One important aspect of COBWEB is the **global utility function** which determines the number of categories, number of hierachy levels and assignment of objects to categories. The global utility function for categories $$C_1...C_N$$, attributes $$A_i$$ with values $$v_{ij}$$ is $$S = 1/N \sum_{n=1...N}\sum_{i,j}P(A_i = v_{ij}) * P(A_i = v_ij | C_n) * P(C_n| A_i = v_{ij})$$.
+
+Interpretation:
+- $$1/N$$: Prefers fewer categories
+- $$P(A_i = v_{ij} | C_n)$$: **Predicatability** - probability that an obejct of categor $$C_n$$ has value $$v_ij$$ for attribute $$A_i$$ = average number of correctly predicted values $$v_{ij}$$ for attribute $$A_i$$ if you know it's category $$C_n$$.
+-
