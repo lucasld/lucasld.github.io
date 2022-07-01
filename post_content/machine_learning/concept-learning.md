@@ -14,7 +14,7 @@ As every attribute can either be false or true and additionaly may contain the v
 **Inductive Learning Hypothesis:** Any hypothesis found to approximate the target function well over a sufficently large set of training examples will also approcimate the target function well over other unobserved examples.
 
 ### Find-S algorithm
-The Find-S algorithm is a algorithm which goes from the maximally general hypothesis to a maximally specific hypothesis. A hypothesis $$h_2$$ is more or equally generally than $$h_1$$ iff any instance that is classified positive by $$h_1$$ is also classifies positive by $$h_2$$.
+The Find-S algorithm is a algorithm which goes from the maximally specific hypothesis to a maximally specific hypothesis that fits the data. A hypothesis $$h_2$$ is more or equally generally than $$h_1$$ iff any instance that is classified positive by $$h_1$$ is also classifies positive by $$h_2$$.
 
 ```python
 init h to the most specific hypothesis in H
