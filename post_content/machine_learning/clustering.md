@@ -210,4 +210,5 @@ A tree is learned by:
 1. creating a new terminal node
 2. merging two nodes
 3. splitting a node
+
 when presented with a new example such that $$S$$ is maximized!
