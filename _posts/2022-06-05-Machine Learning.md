@@ -47,6 +47,31 @@ basics-of-dm:
     -
         name: "distance-function"
         name_value: "Distance Function"
+clustering:
+    -
+        name: "distance-measures"
+        name_value: "Distance Measures"
+    -
+        name: "bias-in-clustering"
+        name_value: "Bias in clustering"
+    -
+        name: "hierachical-clustering"
+        name_value: "Hierachical clustering"
+    -
+        name: "optimization-based-clustering"
+        name_value: "Optimization based clustering"
+    -
+        name: "compression-by-clustering"
+        name_value: "Compression by clustering"
+    -
+        name: "k-means-clustering"
+        name_value: "K-means clustering"
+    -
+        name: "soft-clustering"
+        name_value: "Soft clustering"
+    -
+        name: "conceptual-clustering:-cobweb"
+        name_value: "Conceptual clustering: Cobweb"
 ---
 
 Here I write about some techniques to make machines learn from data.
@@ -67,5 +92,8 @@ Here I write about some techniques to make machines learn from data.
     * <a href="{{ site.baseurl }}{% link post_content/machine_learning/basics-of-dm.md %}#{{subchapter.name}}">{{ subchapter.name_value }}</a>
     {% endfor %}
 - [Clustering]({{ site.baseurl }}{% link post_content/machine_learning/clustering.md %})
+    {% for subchapter in page.clustering %}
+    * <a href="{{ site.baseurl }}{% link post_content/machine_learning/clustering.md %}#{{subchapter.name}}">{{ subchapter.name_value }}</a>
+    {% endfor %}
 - [Dimensionality Reduction]({{ site.baseurl }}{% link post_content/machine_learning/dimension-reduction.md %})
 - [Neural Networks]({{ site.baseurl }}{% link post_content/machine_learning/neural-networks.md %})
