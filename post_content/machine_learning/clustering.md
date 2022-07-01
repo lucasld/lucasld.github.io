@@ -105,7 +105,7 @@ Given a data set $$D = \{ \vec{x_1}, \vec{x_2}, ...\}$$ of d-dimensional vectors
 ### K-means clustering
 The term [K-means clustering](https://en.wikipedia.org/wiki/K-means_clustering) was termed by James McQueen in 1967 though the idea goes back to Hugo Steinhause 1956.
 
-The algorithm works by first dividing $$D$$ into clusters $$C_1 ... C_K$$ which are represented by their K centers of gravity (means) $$\vec{w_1} ... \vec{w_K}$$. The algorithm minimizes the qudratic error measure: $$E(D, \{ \vec{w_i}\}) = 1/{|D|} \sum_{i=1...|D|}\|\vec{x_i} - \vec{w_{m(\vec{x_i})}}\|^2$$.
+The algorithm works by first dividing $$D$$ into clusters $$C_1 ... C_K$$ which are represented by their K centers of gravity (means) $$\vec{w_1} ... \vec{w_K}$$. The algorithm minimizes the qudratic error measure: $$E(D, \{ \vec{w_i}\}) = 1/{\vert D\vert} \sum_{i=1...\vert D\vert}\|\vec{x_i} - \vec{w_{m(\vec{x_i})}}\|^2$$.
 
 Iterative K-means clustering:
 1. start with randomly chosen reference vectors

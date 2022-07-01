@@ -70,7 +70,7 @@ clustering:
         name: "soft-clustering"
         name_value: "Soft clustering"
     -
-        name: "conceptual-clustering:-cobweb"
+        name: "conceptual-clustering-cobweb"
         name_value: "Conceptual clustering: Cobweb"
 ---
 
