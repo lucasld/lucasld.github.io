@@ -183,7 +183,7 @@ It is difficult to say wether an achieved clustering is good. We may test on dif
 - examples are sorted into the formed categories
 - bias of the system lies in the preferences of categoriy formation
 
-Conceptual clustering is a paradigm of unsupervised classificaiton. It's distinguishing property is that it generates a concept description for each generated class.
+Conceptual clustering is a paradigm of unsupervised classification. It's distinguishing property is that it generates a concept description for each generated class.
 
 Cobweb (Fisher 1987) is the most well knwon algorithm for conceptual clustering. Its partly motivated by some drawbacks of ID3:
 - continous attributes require thresholding
@@ -198,9 +198,16 @@ Ideas that make up COBWEB:
 - probabilitstic representation: gradual assignment of objects to categories
 - no a priori fixed number of categories
 
-One important aspect of COBWEB is the **global utility function** which determines the number of categories, number of hierachy levels and assignment of objects to categories. The global utility function for categories $$C_1...C_N$$, attributes $$A_i$$ with values $$v_{ij}$$ is $$S = 1/N \sum_{n=1...N}\sum_{i,j}P(A_i = v_{ij}) * P(A_i = v_ij | C_n) * P(C_n| A_i = v_{ij})$$.
+One important aspect of COBWEB is the **global utility function** which determines the number of categories, number of hierachy levels and assignment of objects to categories. The global utility function for categories $$C_1...C_N$$, attributes $$A_i$$ with values $$v_{ij}$$ is $$S = 1/N \sum_{n=1...N}\sum_{i,j}P(A_i = v_{ij}) * P(A_i = v_ij \vert C_n) * P(C_n \vert A_i = v_{ij})$$.
 
 Interpretation:
 - $$1/N$$: Prefers fewer categories
-- $$P(A_i = v_{ij} | C_n)$$: **Predicatability** - probability that an obejct of categor $$C_n$$ has value $$v_ij$$ for attribute $$A_i$$ = average number of correctly predicted values $$v_{ij}$$ for attribute $$A_i$$ if you know it's category $$C_n$$.
--
+- $$P(A_i = v_{ij} \vert C_n)$$: **Predicatability** - probability that an obejct of category $$C_n$$ has value $$v_{ij}$$ for attribute $$A_i$$ = average number of correctly predicted values $$v_{ij}$$ for attribute $$A_i$$ if you know it's category $$C_n$$. (*Intra-category-similarity)
+- $$P(C_n \vert A_i = v_{ij})$$: **Predictiveness** - probability, that an object with value $$v_{ij}$$ for attribute $$A_i$$ belongs to category $$C_n$$. (*Inter-category-dissimilarity)
+- $$P(A_i = v_{ij})$$: stronger weighting of frequenct attribute values
+
+A tree is learned by:
+1. creating a new terminal node
+2. merging two nodes
+3. splitting a node
+when presented with a new example such that $$S$$ is maximized!
