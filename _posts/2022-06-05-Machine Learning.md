@@ -72,6 +72,19 @@ clustering:
     -
         name: "conceptual-clustering-cobweb"
         name_value: "Conceptual clustering: Cobweb"
+dimension-reduction:
+    -
+        name: "curse-of-dimensionality"
+        name_value: "Curse of dimensionality"
+    -
+        name: "principal-component-analysis"
+        name_value: "Principal component analysis"
+    -
+        name: "principal-curves"
+        name_value: "Principal curves"
+    -
+        name: "visualization-of-high-dimensional-data"
+        name_value: "Visualization of high dimensional data"
 ---
 
 Here I write about some techniques to make machines learn from data.
