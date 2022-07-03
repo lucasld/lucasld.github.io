@@ -2,3 +2,116 @@
 layout: post
 title: Machine Learning - Neural Networks
 ---
+
+
+### Computer vs. brain
+**Computers:**
+* fast sequential processing
+* high effort for parallelization to just a few processors
+* symbolic processing withoutn errors
+* no redundancy
+* due to lack of software, very bad at pattern recognition, learning, robot control etc.
+* progress in AI fields where symbolic formalism is available, e.g., data base management or games
+* adaptivity is iomplemented by software, not hardware
+
+**Brain:**
+* highly parallel: $$\sim 10^10$$ neurons
+* $$10^4 - 10^5$$ connections per neuron
+* slow: neuron switching time $$\sim 1$$msec
+* scene recognition in $$\sim 0.1$$sec $$\rightarrow$$ only $$\sim 100$$ sequential steps, but highly parallel
+* high redundancy: death of neuron is compensated by others
+* high plasticity of hardware
+* very good at tasks such as pattern recognition, robot control etc.
+* surprisingly bad at symbolic computation $$\rightarrow$$ high bias for the above tasks!
+
+Idea of Neuroinformatics: mimic neural principles by software!
+
+**Neurons:**
+What we learn from neurobiology:
+* neurons have many inputs but only one output
+* firing rate of neurons codes its activity
+* activity is increased when the neurons gets input from other neurons via axons
+* the input from the axons is weighted differently by the synapses
+* a neuron has a nonlinear activation function: below a treshold, it will fire little, then there is an increase of its firing with the input, then saturation is reached
+* best modeled by a sigmoid activation function
+
+**Formal neurons**
+The basic neuron model used in Neuroinformatics is a ver simple abstraction of the neurobiological findings! It consists of a $$d$$ input and one input. Also every input $$x_i$$ is weighted by a weight $$w_i$$. Also there exists a bias input which is alwas 1 and also has a weight. All these inputs are summed as such: $$s = \sum_{i=1...d} w_i x_i + w_{bias}$$. This summed input is passed through a activation function such as a sigmoid.
+
+Activation functions:
+- Fermi function
+- tanh
+- grossberg's function
+- thresholding function
+- sigmoid
+- linear
+- relu
+
+
+### Types of learning
+* **Unsupervised learning**
+    - no teacher, examples are unlabeled
+    - effect of learning is coded in learning rules
+* **Supervised learning**
+    - teacher who labels examples and thereby provides knowledge
+    - learning is directed at mapping input part (e.g., stimulus) of the examples to the label as an output (e.g. class)
+* **Reinforcement learning**
+    - "weak teacher:" agent tries to reach a goal and the teacher tells the agent wether the has been reached (by providing reward)
+    - the agent has to find the way by itself as reward is not immediate
+* **Selfsupervised learning**
+    - can be seen as mixture between unsupervised and supervised learning
+    - learns in two steps, intializes weights with pseudo labels and then contiues supervised or unsupervised
+    - gaining in popularity as there is so much unlabeled data
+
+
+### Hebbian learning
+Formulated in 1949 by Donald Hebb. It is one of the first ideas how learning can arise in neurons or neural networks based on a simple mechanism.
+
+**Formula:**
+$$\triangle w_{ij} = \eta * a_i * a_j$$ can also be written as $$\triangle\vec{w} = \eta * y(\vec{x} \vec{w})\vec{x}$$ for all incoming weights of a neuron.
+* $$\triangle w_{ij}$$ - change of weight $$w_{ij}$$ connecting neuron j with neuron i
+* $$\eta$$ - learning rate
+* $$a_i$$ - activation of neuron i
+* $$a_j$$ - activation of neuron j which is connected to neuron i
+
+#### Limit weight growth
+One problem with this is, that since weights never decrease, they become arbitrarily large. There are several solutions to this:
+- decay term: $$\triangle w_{ij} = \eta * a_i * a_j - \lambda * w_{ij}$$
+- dynamic normalization $$\triangle w_{ij} = \eta * a_i * a_j - \lambda * w_{ij} * (w_{ij}^2 - 1)$$
+- explicit normalization $$w_{ij}^{new} = (w_{ij}^{old} + \triangle w_{ij}) / \vert w_{ij}^{old} + \triangle w_{ij}\vert$$
+- Oja's rule (Erkii Oja, 1982) uses weight decay $$\sim y^2$$: $$\trinagle \vec{w} = \eta * y(\vec{x}\vec{w})(\vec{x} - y(\vec{x}\vec{w})*\vec{w})$$
+
+#### Effect of Heeb's rule for a pair of neurons
+The connection between two neurons, represented by the weight of the postsynaptic neuron, will increase during training until an equilibrium with the decay term is reached. Then, the weight is proportional to the correlation of the activity of the neurons.
+
+#### Effect of Hebb's rule on the weight vector
+Averaged over many learning steps with small variance and data which leads to our activation to remain within the linear range of our activation function (so that it can be approximated by a linear function) holds: $$<\triangle \vec{w}> = \eta <(\vec{x}\vec{x}^T)>\vec{w} = \eta C \vec{w}$$
+
+**....**
+
+For $$t \rightarrow \infty$$ the weight vector converges to the eigenvector of $$C$$ with the largest eigenvalue. **Similar to PCA hebbian learning finds the largest PCs.**
+
+#### Habituation and Anti-Hebb rule
+What happens when we modify Hebb's rule to an **Anti-Hebb rule** $$\triangle \vec{w} = - \eta y(\vec{x}^T\vec{w})\vex{x}$$?
+
+* as $$\vec{w}$$ becomes orthogonal to a repeated stimulus $$\vec{x}$$, this stimulus no longer leads to activation of the neuron since $$\vec{x}\vec{w}=0$$
+* $$\vec{w}$$ filters out *new* stimuli
+* if several stimuli $$\vec{x_1}, \vec{x_2}, ..., \vec{x_n}$$, $$n < d$$, are presented repeatedly, only the $$\vec{w}$$-component orthogonal to $$span{\vec{x_1}, \vec{x_2}, ..., \vec{x_n}}$$ remains
+* so only stimuli $$\vec{x}\in V$$ with $$V \perp span{\vec{x_1}, \vec{x_2}, ..., \vec{x_n}}$$ can "pass" the filter, i.e., activate the neuron.
+
+#### Extracting more PCs using Hebb's rule
+So far: a single Hebb-neuron extracts $$\vec{v_1}$$. To extract more principal components from $$D$$, there are two ways:
+
+**.....**
+
+#### Summary
+* unsupervised learning by a simple rule to modify the weights of a single neuron
+* motivation: classical conditioning
+* Hebb-neuron learns association of stimuli from correlation
+* weight vector directs itself in the direction of the principal component of the data distribution with largest eigenvalue
+* Anti-Hebb rule implements habituation, weight vector becomes orthogonal to all repeated stimuli thus new stimuli can be filtered out
+* PCA is possible by a chain of Hebb neurons, where earlier neurons filter PCs of large eigenvalues out of the input for the training of the later neurons
+* chain can be trained either successively or all at once using a combination of the Hebb rule with lateral anti Hebb rule
+
+
+### Perceptron
