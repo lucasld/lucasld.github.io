@@ -120,3 +120,43 @@ Indices to measure the deviation of a distribution $$P(\vec{x})$$ (which has bee
 
 **Index for finding clusters:**
 Clustered distributions exhibit more short distnaces between pairs of points than unstructured distributions (for identical variance).
+
+A projection inde aimed at finding clusters was also proposed by Friedman and TUkey (1974): $$I(\vec{k}) = s(\vec{k}) * p(\vec{k})$$.
+* $$\vec{k}$$ is the projection vectors
+* $$s(\vec{k})$$ is the standart deviation along $$\vec{k}$$
+* $$p(\vec{k})$$ is the average distance of points along $$\vec{k}$
+
+("Along" means: project data onto direction $$\vec{k}$$, then measure $$s$$ and $$p$$)
+
+Average pair distance: $$p(\vec{k}) = \sum_{i,j=1...\vert D\vert}f(x_{ij}) * \Theta (R - x_{ij})$$
+
+$$\Theta$$ is the step function which implements a soft cit off together with $$f(.)$$.
+
+The average pair distance is computed only up to a certain scale defined by $$f(.)$$ ad the cut off value R.
+
+If two dimensions are wanted for plotting just repead the 1d procedure just describe, or better simultaneously maximize $$k_1$$ and $$k_2$$ using 2d-index.
+
+#### Multimdimensional scaling
+How to find a manifold of low dimension such that projecting the data into this manifold **perserves the structure** of the data as good as possible. For this we must define what "structure" means.
+
+One import aspect of structure is the **distances** between the data points.
+
+Given:
+* data space $$\Re^D$$ of high dimension $$D$$
+* projection space $$\Re^d$$ of small dimension $$d$$ (for visualization, usually $$d=2$$ or $$3$$)
+
+Aim: Find a mapping $$\vec{\Phi}: \Re^D \rightarrow \Re^d$$ such that the distances: $$\triangle_{ij} = \|\vec{x_i} - \vec{x_j}\|_D$$ between the data points $$\vec{x_i}$$ and $$\vec{x_j}$$ in $$\Re^D$$ are well approximated by the distances $$delta_{ij} = \|\vec{\Phi}(\vec{x_i}) - \vec{\Phi}(\vec{x_j})\|_d$$.
+
+Sammon's stress measure: $$E[\Phi] = (1/\sum_{i<j}\triangle_{ij})\sum_{i<j}(\triangle_{ij}-\delta_{ij})^2 / \triangle_{ij}$$
+
+Minimization, e.g. by graident descent with respect to the parameters of the mapping $$\Phi$$. Suitable intial parameters may be pbtained by projection of the data ontp the subspace spanned by the eigenvectors of largest eigenvalues. The most difficult problem, however, is not minimization but finding a suitable ansatz for the mapping function $$\Phi$$.
+
+**Summary: Visualization**
+- visualization of high dimensional data can capture the comeplete information of a single data point as long as the dimension is not too high
+- a scatterplot matrix shows all 2d combinations of dimensions
+- glyphs represent several dimensions but require training to the specific glyph design
+- for higher dimension, projection onto directions / surfaces is necessary
+- common dimension reduction techniques aiming at high variance may lead to projections showing an unstructured distribution
+- projection pursuit:
+    - finds suitable projection direction(s) by maximizing a projection index
+    - the index aims at non-gaussian and/or clustered distributions
