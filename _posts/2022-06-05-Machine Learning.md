@@ -109,4 +109,7 @@ Here I write about some techniques to make machines learn from data.
     * <a href="{{ site.baseurl }}{% link post_content/machine_learning/clustering.md %}#{{subchapter.name}}">{{ subchapter.name_value }}</a>
     {% endfor %}
 - [Dimensionality Reduction]({{ site.baseurl }}{% link post_content/machine_learning/dimension-reduction.md %})
+    {% for subchapter in page.dimension-reduction %}
+    * <a href="{{ site.baseurl }}{% link post_content/machine_learning/dimension-reduction.md %}#{{subchapter.name}}">{{ subchapter.name_value }}</a>
+    {% endfor %}
 - [Neural Networks]({{ site.baseurl }}{% link post_content/machine_learning/neural-networks.md %})
