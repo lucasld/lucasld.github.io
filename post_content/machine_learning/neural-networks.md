@@ -115,3 +115,54 @@ So far: a single Hebb-neuron extracts $$\vec{v_1}$$. To extract more principal c
 
 
 ### Perceptron
+It's pratical use is limited, but the perceptron is the building block of the multiplayer perceptron.
+
+The perceptron is trained iteratively using labeled data set $$D = \{(\vec{x}^n, \vec{t}^n)\}$$, $$\vec{x}^n\in \Re^d$$, where $$t^n$$ is the target value (i.e., the label, class, etc. provided by the teacher) for input $$\vec{x}^n$$.
+
+#### Training rule
+$$\Delta \vec{w} = \eta (t - y) \vec{x}$$, $$\eta$$ is a small learning rate. Convergence can be shown if $$\eta$$ is sufficently small and if the task is solvable by a perceptron. The perceptrin can represent the hypotheses space $$\{\vec{w} \vert \vec{w} \in \Re^{d+1}\}$$. The *"decision surface"* represented by a perceptrin is de $$d-1$$ dimensional hyperplace orthogonal to $$\vec{w}$$. Data on the "positive side" of the hyperplace with $$\vec{x}\vec{w}>0$$ get $$y=1$$, the rest $$0$$.
+
+#### Class seperability
+The data must be *linearly seperable*, i.e., the two classes must be on the two sides of a hyperplace. If the data goes through the hyperplace, a nonlinear seperatrix is required!
+
+#### Convergence speed
+Provided classes are linearly seperable, there are still easy and difficult seperation tasks. A small hypothesis space requires more training steps until convergence is achieved.
+
+#### Logic operations
+A perceptrin with two boolean inputs (and the 1-component) can implement AND, OR, NAND and NOR but **not XOR**
+
+The **XOR-problem** can be solved b "distortion" of the input space to obtain a "feature space" , i.e., a nonlinear transform $$\vec{f(\vec{x})}$$ of the inputs. Alternatively, $$x_3 = x_1 * x_2$$ can be added as antother input channel.
+
+#### Learning rule from error function
+The learning rule can be derived from minimizing the mean square error: $$E[\vec{w}] = 1/2 \sum_{i=1...\vert D\vert}(t^i - y(\vec{x^i}))^2$$
+
+Gradient descent: $$\Delta\vec{w} = -\eta \sum_{i=1...\vert D\vert}(t^i - y(\vec{x^i}))(-\vec{x^i})$$
+
+Stochastic approsimation: $$\Delta\vec{w} = -\eta (\vec{t^i} - y(\vec{x^i}))\vec{x^i}$$
+
+#### Batch mode and incremental mode
+The stochastic approximation is also called incremental mode (in contrast to batch mode):
+
+**Batch Mode:**
+
+$$\Delta\vec{w} = \eta \sum_{i=1...\vert D\vert}(t^i - y(\vec{x^i}))\vec{x^i}$$
+
+Gradient descent with respect to the entire training set $$D$$.
+
+**Incremental mode:**
+
+$$\Delta\vec{w} = -\eta (\vec{t^i} - y(\vec{x^i}))\vec{x^i}$$
+
+Gradient descent with respect to only ine example $$(\vec{x^i}, \vec{t^i})$$ at a time. For sufficently small $$\eta$$, incremental gradient descent can be shown to approximate batch gradient descent arbitratily close.
+
+#### Summary
+- simple supervised learning rule for a single neuron
+- learning rule can be derived from mean squre error function
+- convergence proven
+- large margin between linearly seperable classes leaves many possible weight vector (large hypothesis space), so the task is easier and convergence is faster
+- can only sole linearly seperable tasks
+- most famous example for nonlinear two-class seperation is XOR
+- XOR can not be solved by perceptrin except with highly problem specific add-ons (this led to a temporary drop in the interest in ANN)
+
+
+### Multilayer Perceptron
