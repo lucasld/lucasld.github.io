@@ -147,7 +147,7 @@ Given:
 
 Aim: Find a mapping $$\vec{\Phi}: \Re^D \rightarrow \Re^d$$ such that the distances: $$\Delta_{ij} = \|\vec{x_i} - \vec{x_j}\|_D$$ between the data points $$\vec{x_i}$$ and $$\vec{x_j}$$ in $$\Re^D$$ are well approximated by the distances $$delta_{ij} = \|\vec{\Phi}(\vec{x_i}) - \vec{\Phi}(\vec{x_j})\|_d$$.
 
-Sammon's stress measure: $$E[\Phi] = \frac{\sum_{i<j}(\Delta_{ij}-\delta_{ij})^2 / \Delta_{ij}}{\sum_{i<j}\Delta_{ij}} = \sum_{i<j}(\Delta_{ij}-\delta_{ij})^2 \frac{1}{\sum_{i<j}\Delta_{ij}^2}$$
+Sammon's stress measure: $$E[\Phi] = \frac{\sum_{i<j}(\Delta_{ij}-\delta_{ij})^2 / \Delta_{ij}}{\sum_{i<j}\Delta_{ij}}$$
 
 Minimization, e.g. by graident descent with respect to the parameters of the mapping $$\Phi$$. Suitable intial parameters may be pbtained by projection of the data ontp the subspace spanned by the eigenvectors of largest eigenvalues. The most difficult problem, however, is not minimization but finding a suitable ansatz for the mapping function $$\Phi$$.
 
