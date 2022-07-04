@@ -76,7 +76,7 @@ The m parameters $$a_i(\vec{x})$$ determine the point of the surface of $$\vec{X
 
 The numner n of parameters $$\vec{w}$$ is responsible for the ability of $$\vec{X}$$ to fit a manifold. Small n tend to lead to underfitting and too large n to overfitting. To ensure a good fit, additional *smoothness constraints* should be used.
 
-The parameters $$\vec{w}$$ can be found for $$P(\vec{x})$$, e.g., by gradient descent. The problem is that each step requires integration over all data. The solution is *stochastic approximation*. Make the downhill step only with respect to a single sample: $$\triangle \vec{w} = \epsilon (\vec{x} - \vec{X}(a_1(vec{x})...a_m(\vec{x}); \vec{w})) * \partial/{\partial \vec{w}} \vec{X}(a_1(vec{x})...a_m(\vec{x}); \vec{w})$$ hoping that minimization for a succession of many samples with small stepsize results in minimization of $$E$$.
+The parameters $$\vec{w}$$ can be found for $$P(\vec{x})$$, e.g., by gradient descent. The problem is that each step requires integration over all data. The solution is *stochastic approximation*. Make the downhill step only with respect to a single sample: $$\Delta \vec{w} = \epsilon (\vec{x} - \vec{X}(a_1(vec{x})...a_m(\vec{x}); \vec{w})) * \partial/{\partial \vec{w}} \vec{X}(a_1(vec{x})...a_m(\vec{x}); \vec{w})$$ hoping that minimization for a succession of many samples with small stepsize results in minimization of $$E$$.
 
 ....
 
@@ -121,16 +121,16 @@ Indices to measure the deviation of a distribution $$P(\vec{x})$$ (which has bee
 **Index for finding clusters:**
 Clustered distributions exhibit more short distnaces between pairs of points than unstructured distributions (for identical variance).
 
-A projection inde aimed at finding clusters was also proposed by Friedman and TUkey (1974): $$I(\vec{k}) = s(\vec{k}) * p(\vec{k})$$.
+A projection inde aimed at finding clusters was also proposed by Friedman and Tukey (1974): $$I(\vec{k}) = s(\vec{k}) * p(\vec{k})$$.
 * $$\vec{k}$$ is the projection vectors
 * $$s(\vec{k})$$ is the standart deviation along $$\vec{k}$$
-* $$p(\vec{k})$$ is the average distance of points along $$\vec{k}$
+* $$p(\vec{k})$$ is the average distance of points along $$\vec{k}$$
 
 ("Along" means: project data onto direction $$\vec{k}$$, then measure $$s$$ and $$p$$)
 
 Average pair distance: $$p(\vec{k}) = \sum_{i,j=1...\vert D\vert}f(x_{ij}) * \Theta (R - x_{ij})$$
 
-$$\Theta$$ is the step function which implements a soft cit off together with $$f(.)$$.
+$$\Theta$$ is the step function which implements a soft cut off together with $$f(.)$$.
 
 The average pair distance is computed only up to a certain scale defined by $$f(.)$$ ad the cut off value R.
 
@@ -145,9 +145,9 @@ Given:
 * data space $$\Re^D$$ of high dimension $$D$$
 * projection space $$\Re^d$$ of small dimension $$d$$ (for visualization, usually $$d=2$$ or $$3$$)
 
-Aim: Find a mapping $$\vec{\Phi}: \Re^D \rightarrow \Re^d$$ such that the distances: $$\triangle_{ij} = \|\vec{x_i} - \vec{x_j}\|_D$$ between the data points $$\vec{x_i}$$ and $$\vec{x_j}$$ in $$\Re^D$$ are well approximated by the distances $$delta_{ij} = \|\vec{\Phi}(\vec{x_i}) - \vec{\Phi}(\vec{x_j})\|_d$$.
+Aim: Find a mapping $$\vec{\Phi}: \Re^D \rightarrow \Re^d$$ such that the distances: $$\Delta_{ij} = \|\vec{x_i} - \vec{x_j}\|_D$$ between the data points $$\vec{x_i}$$ and $$\vec{x_j}$$ in $$\Re^D$$ are well approximated by the distances $$delta_{ij} = \|\vec{\Phi}(\vec{x_i}) - \vec{\Phi}(\vec{x_j})\|_d$$.
 
-Sammon's stress measure: $$E[\Phi] = (1/\sum_{i<j}\triangle_{ij})\sum_{i<j}(\triangle_{ij}-\delta_{ij})^2 / \triangle_{ij}$$
+Sammon's stress measure: $$E[\Phi] = (1/\sum_{i<j}\Delta_{ij})\sum_{i<j}(\Delta_{ij}-\delta_{ij})^2 / \Delta_{ij}$$
 
 Minimization, e.g. by graident descent with respect to the parameters of the mapping $$\Phi$$. Suitable intial parameters may be pbtained by projection of the data ontp the subspace spanned by the eigenvectors of largest eigenvalues. The most difficult problem, however, is not minimization but finding a suitable ansatz for the mapping function $$\Phi$$.
 

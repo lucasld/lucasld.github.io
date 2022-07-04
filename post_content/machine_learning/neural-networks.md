@@ -68,36 +68,36 @@ Activation functions:
 Formulated in 1949 by Donald Hebb. It is one of the first ideas how learning can arise in neurons or neural networks based on a simple mechanism.
 
 **Formula:**
-$$\triangle w_{ij} = \eta * a_i * a_j$$ can also be written as $$\triangle\vec{w} = \eta * y(\vec{x} \vec{w})\vec{x}$$ for all incoming weights of a neuron.
-* $$\triangle w_{ij}$$ - change of weight $$w_{ij}$$ connecting neuron j with neuron i
+$$\Delta w_{ij} = \eta * a_i * a_j$$ can also be written as $$\Delta\vec{w} = \eta * y(\vec{x} \vec{w})\vec{x}$$ for all incoming weights of a neuron.
+* $$\Delta w_{ij}$$ - change of weight $$w_{ij}$$ connecting neuron j with neuron i
 * $$\eta$$ - learning rate
 * $$a_i$$ - activation of neuron i
 * $$a_j$$ - activation of neuron j which is connected to neuron i
 
 #### Limit weight growth
 One problem with this is, that since weights never decrease, they become arbitrarily large. There are several solutions to this:
-- decay term: $$\triangle w_{ij} = \eta * a_i * a_j - \lambda * w_{ij}$$
-- dynamic normalization $$\triangle w_{ij} = \eta * a_i * a_j - \lambda * w_{ij} * (w_{ij}^2 - 1)$$
-- explicit normalization $$w_{ij}^{new} = (w_{ij}^{old} + \triangle w_{ij}) / \vert w_{ij}^{old} + \triangle w_{ij}\vert$$
-- Oja's rule (Erkii Oja, 1982) uses weight decay $$\sim y^2$$: $$\trinagle \vec{w} = \eta * y(\vec{x}\vec{w})(\vec{x} - y(\vec{x}\vec{w})*\vec{w})$$
+- decay term: $$\Delta w_{ij} = \eta * a_i * a_j - \lambda * w_{ij}$$
+- dynamic normalization $$\Delta w_{ij} = \eta * a_i * a_j - \lambda * w_{ij} * (w_{ij}^2 - 1)$$
+- explicit normalization $$w_{ij}^{new} = (w_{ij}^{old} + \Delta w_{ij}) / \vert w_{ij}^{old} + \Delta w_{ij}\vert$$
+- Oja's rule (Erkii Oja, 1982) uses weight decay $$\sim y^2$$: $$\Delta \vec{w} = \eta * y(\vec{x}\vec{w})(\vec{x} - y(\vec{x}\vec{w})*\vec{w})$$
 
 #### Effect of Heeb's rule for a pair of neurons
 The connection between two neurons, represented by the weight of the postsynaptic neuron, will increase during training until an equilibrium with the decay term is reached. Then, the weight is proportional to the correlation of the activity of the neurons.
 
 #### Effect of Hebb's rule on the weight vector
-Averaged over many learning steps with small variance and data which leads to our activation to remain within the linear range of our activation function (so that it can be approximated by a linear function) holds: $$<\triangle \vec{w}> = \eta <(\vec{x}\vec{x}^T)>\vec{w} = \eta C \vec{w}$$
+Averaged over many learning steps with small variance and data which leads to our activation to remain within the linear range of our activation function (so that it can be approximated by a linear function) holds: $$<\Delta \vec{w}> = \eta <(\vec{x}\vec{x}^T)>\vec{w} = \eta C \vec{w}$$
 
 **....**
 
 For $$t \rightarrow \infty$$ the weight vector converges to the eigenvector of $$C$$ with the largest eigenvalue. **Similar to PCA hebbian learning finds the largest PCs.**
 
 #### Habituation and Anti-Hebb rule
-What happens when we modify Hebb's rule to an **Anti-Hebb rule** $$\triangle \vec{w} = - \eta y(\vec{x}^T\vec{w})\vex{x}$$?
+What happens when we modify Hebb's rule to an **Anti-Hebb rule** $$\Delta \vec{w} = - \eta y(\vec{x}^T\vec{w})\vec{x}$$?
 
 * as $$\vec{w}$$ becomes orthogonal to a repeated stimulus $$\vec{x}$$, this stimulus no longer leads to activation of the neuron since $$\vec{x}\vec{w}=0$$
 * $$\vec{w}$$ filters out *new* stimuli
-* if several stimuli $$\vec{x_1}, \vec{x_2}, ..., \vec{x_n}$$, $$n < d$$, are presented repeatedly, only the $$\vec{w}$$-component orthogonal to $$span{\vec{x_1}, \vec{x_2}, ..., \vec{x_n}}$$ remains
-* so only stimuli $$\vec{x}\in V$$ with $$V \perp span{\vec{x_1}, \vec{x_2}, ..., \vec{x_n}}$$ can "pass" the filter, i.e., activate the neuron.
+* if several stimuli $$\vec{x_1}, \vec{x_2}, ..., \vec{x_n}$$, $$n < d$$, are presented repeatedly, only the $$\vec{w}$$-component orthogonal to $$span\{\vec{x_1}, \vec{x_2}, ..., \vec{x_n}\}$$ remains
+* so only stimuli $$\vec{x}\in V$$ with $$V \perp span\{\vec{x_1}, \vec{x_2}, ..., \vec{x_n}\}$$ can "pass" the filter, i.e., activate the neuron.
 
 #### Extracting more PCs using Hebb's rule
 So far: a single Hebb-neuron extracts $$\vec{v_1}$$. To extract more principal components from $$D$$, there are two ways:
