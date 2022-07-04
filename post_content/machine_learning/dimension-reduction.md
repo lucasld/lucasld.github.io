@@ -31,7 +31,7 @@ High dimensionality of our data is problematic as it can make working with the d
 ### Principal component analysis
 Principal component analysis (PCA) is a commonly used method of dimension reduction. The idea is to find the subspace that captures most of the data variance. It is a form of unsupervised learning. Given a data set $$D = \{\vec{x_1}, vec{x_2}, ...\}$$, $$\vec{x_i}\in\Re^d$$ with zero mean: $$<\vec{x}> = \sum_{i=1...\vert D\vert}\vec{x_i} = 0$$. *PCA* finds $$m < d$$ orthonormal vectors $$\vec{p_1}...\vec{p_m}$$ such that the $$\vec{p_i}$$ are in the directions of largest variance of $$D$$.
 
-* the vectors $$\vec{p_i}$$ are the $$m$$ **eigenvectors** of the covariance matrix C = (C_{ij}) = (<\vec{x}\vec{x}^T>_{ij})$$ with largetst eigenvalies $$\lambda_i$$: $$C\vec{p_i} = \lambda_i \vec{p_i}$$
+* the vectors $$\vec{p_i}$$ are the $$m$$ **eigenvectors** of the covariance matrix $$C = (C_{ij}) = (<\vec{x}\vec{x}^T>_{ij})$$ with largetst eigenvalies $$\lambda_i$$: $$C\vec{p_i} = \lambda_i \vec{p_i}$$
 * since $$C$$ is symmetric and real, the $$\lambda_i$$ are real and there is an orthonormal basis of eigenvectors $$\vec{p_i}\vec{p_j} = \delta_{ij}$$
 * exapansion of $$\vec{x_i}$$ using of all eigenvectors would yield $$\vec{x_i}$$ without error (provided all $$\lambda_i \neq 0$$): $$\vec{x_i} = \sum_{j=1...d}a_{ij}\vec{p_j}$$ with $$a_{ij}=\vec{x_i}\vec{p_j}$$
 * to obtain an approximation $$\vec{z_i}$$ of $$\vec{x_i}$$, only $$m < d$$ basis vectors are used (Karhunen-Loeve expansion): $$\vec{x_i} \approx \vec{z_i} = \sum_{j=1...m}a_{ij}\vec{p_j}$$ provided the eigenvectors are ordered such that $$\lambda_1 \geq \lambda_2 \geq ... \geq \lambda_d$$
