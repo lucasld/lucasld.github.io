@@ -131,8 +131,8 @@ linear_regression = (sketch) => {
         var y_0 = mean_y - y_s * mean_x;
         var x_0 = mean_x - x_s * mean_y;
         sketch.stroke(255, 0, 0);
-        sketch.line(y_s * -sketch.height/2 + y_0, 0, y_s * sketch.height/2 + y_0, sketch.height);
-        sketch.line(0, x_s * -sketch.width/2 + x_0, sketch.width, x_s * sketch.width/2 + x_0);
+        sketch.line(0, y_s * -sketch.width/2 + y_0 + sketch.height/2, sketch.width, y_s * sketch.width/2 + y_0 + sketch.height/2);
+        sketch.line(x_s * -sketch.height/2 + x_0 + sketch.width/2, 0, x_s * sketch.height/2 + x_0 + sketch.width/2, sketch.height);
     }
 
 

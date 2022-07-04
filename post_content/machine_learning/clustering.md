@@ -27,10 +27,10 @@ All clustering algorithm have some kind of bias:
 There are two complementary methods:
 * Agglomerative clustering:
     - start with each data point as a cluster
-    - **merge** clusters recursively top down
+    - **merge** clusters recursively bottom-up
 * Divisive clustering
     - start with all data points as a single cluster
-    - **split** clusters recursively top down
+    - **split** clusters recursively top-down
 The result is a dendrogram representing all data in a hierachy of clusters.
 
 **Agglomorative clustering:**
