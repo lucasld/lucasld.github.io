@@ -211,3 +211,11 @@ Two (of many) ways to avoid local minima:
 **Annealing:** Add noise, e.g., every $$n$$ learning steps: $$w_{ji}(k+1, k) \leftarrow w_{ji}(k+1, k) + T \zeta_{ji}(k+1, k)$$ where $$\zeta$$ is a Gaussian random variable with $$<\zeta> = 0$$ and $$\zeta_{ji}(k+1, k)$$ are pairwise uncorrelated. $$T$$ is the "temperature", denoting the amount of noise added. $$T$$ is gradually decreased during training. Annealing improves minimization but requires more learning steps.
 
 **Step size adaption:** Increade $$\eta$$ in flat regions and decrease $$\eta$$ in steep terrain. Step size adaption:
+$$a(z) =  \begin{array}{cc} 1 \\ 2 \\ 3\end{array}$$
+$$alpha(x)=\left\{
+                \begin{array}{ll}
+                  x\\
+                  \frac{1}{1+e^{-kx}}\\
+                  \frac{e^x-e^{-x}}{e^x+e^{-x}}
+                \end{array}
+              \right$$
