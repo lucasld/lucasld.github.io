@@ -105,6 +105,17 @@ neural-networks:
     -
         name: "neural-architectures"
         name_value: "Neural architectures"
+
+local-methods:
+    -
+        name: "instance-based-learning"
+        name_value: "Instance-based learning"
+    -
+        name: "radial-basis-functions"
+        name_value: "Radial basis functions"
+    -
+        name: "self-organizing-maps"
+        name_value: "Self-organizing maps"
 ---
 
 Here I write about some techniques to make machines learn from data.
@@ -137,6 +148,9 @@ Here I write about some techniques to make machines learn from data.
     * <a href="{{ site.baseurl }}{% link post_content/machine_learning/neural-networks.md %}#{{subchapter.name}}">{{ subchapter.name_value }}</a>
     {% endfor %}
 - [Local Methods]({{ site.baseurl }}{% link post_content/machine_learning/local-methods.md %})
+    {% for subchapter in page.local-methods %}
+    * <a href="{{ site.baseurl }}{% link post_content/machine_learning/local-methods.md %}#{{subchapter.name}}">{{ subchapter.name_value }}</a>
+    {% endfor %}
 - [Classification]({{ site.baseurl }}{% link post_content/machine_learning/classification.md %})
 - [Reinforcement Learning]({{ site.baseurl }}{% link post_content/machine_learning/reinforcement-learning.md %})
 - [Modelling Unvertainty]({{ site.baseurl }}{% link post_content/machine_learning/modelling-uncertainty.md %})
