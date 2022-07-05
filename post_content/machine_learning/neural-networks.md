@@ -212,7 +212,7 @@ Two (of many) ways to avoid local minima:
 
 **Step size adaption:** Increade $$\eta$$ in flat regions and decrease $$\eta$$ in steep terrain. Step size adaption:
 $$a(z) =  \begin{array}{cc} 1 \\ 2 \\ 3\end{array}$$
-$$alpha(x)=\left\{
+$$alpha(x)=\left {
                 \begin{array}{ll}
                   x\\
                   \frac{1}{1+e^{-kx}}\\
