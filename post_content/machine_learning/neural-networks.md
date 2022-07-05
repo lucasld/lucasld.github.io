@@ -204,12 +204,91 @@ To compute the new weight add $$\Delta w_{ji}(k+1, k) = \eta \delta_j(k+1)o_i(k)
     - suffers from numerous local minima
     - is difficult to terminate: achieve good minimization without overfitting
 
-##### Local minima
+#### Local minima
 Two (of many) ways to avoid local minima:
 **Repeat:** Training with different random initial weights in the hope minimization is caught in different basins of attraction
 
 **Annealing:** Add noise, e.g., every $$n$$ learning steps: $$w_{ji}(k+1, k) \leftarrow w_{ji}(k+1, k) + T \zeta_{ji}(k+1, k)$$ where $$\zeta$$ is a Gaussian random variable with $$<\zeta> = 0$$ and $$\zeta_{ji}(k+1, k)$$ are pairwise uncorrelated. $$T$$ is the "temperature", denoting the amount of noise added. $$T$$ is gradually decreased during training. Annealing improves minimization but requires more learning steps.
 
 **Step size adaption:** Increade $$\eta$$ in flat regions and decrease $$\eta$$ in steep terrain. Step size adaption:
-$$a(z) =  \begin{array}{cc} 1 \\ 2 \\ 3\end{array}$$
-$$alpha(x)=\left { \begin{array}{ll} x\\ \frac{1}{1+e^{-kx}}\\ \frac{e^x-e^{-x}}{e^x+e^{-x}} \end{array} \right$$
+
+if $$\Delta E<0 \rightarrow \eta(t) = \eta^+ * \eta(t-1), \eta^+ > 1$$\
+if $$\Delta E>0 \rightarrow \eta(t) = \eta^- * \eta(t-1), \eta^- < 1$$
+
+**Momentum:** The problem is that minimization stops at minor minima because of too small $$\eta$$. In valleys of $$E$$ oscillation may occur due to too large $$\eta$$. Both of these problems are solved by adding **momentum**: $$\Delta w_{ji}(k+1, k)(t) = \eta \delta_j(k+1) o_i(k) + \alpha \Delta w_{ji}(k+1, k)(t-1)$$ where t is a step counter. So direction of step $$t-1$$ is kept to some degree (controlled by $$\alpha > 0$$). Momentum avoids abrupt changes of direction and increases effective step size in flat regions.
+
+**Weight decay:** Overly large weights are problematic since they make neurons too sensitive to the input (leads to "binary" activations). That's why we add an additional quadratic **regularization'' term in the error function to avoid to large weights. $$E[\{w\}] = 1/2 \sum_{i=1...\vert D\vert} (t^i - y(x^i))^2 + \beta/2 \sum_{w \in \{w\}}w^2$$. This leads to linear weight decay in the learning rule $$\Delta w_{ji}(k+1, k) = \eta \delta_j(k+1)o_i(k) - \beta w_{ji}(k+1, k)$$
+
+**Funahashi, 1989**: An arbitrary bounded contunous mapping $$\vec{w} \rightarrow \vec{t}$$, $$\vec{x} \in \Re^{d_{in}}$$, $$\vec{t}\in\Re^{d_{out}}$$ can be approximated with arbitrary precision with one hidden layer with sigmoid actiation functions and a layer with linear output functions. The latter is necessary to map the range of $$\sigma$$ to arbitrary values.
+
+**Cybenko, 1988**: Add another sigmoid hidden layer, so *any* function can be approximated with arbitrary precision.
+
+*But* the hidden layer may be very large and is possibly not the most efficient representation of the mapping!
+
+The reason why an MLP can approximate an aebitrary function using two hidden layers with sigmoid activation is that:\
+Layer 1 defines **hyperplanes**, dividing input space into half-planes.\
+Layer 2 defines **AND**s over hyperplaces and thus convex areas.\
+Layer 3 defindes **OR**s over convex areas.
+
+#### Summary
+- MLP is the ANN most well known and has most widespread use in industry
+- very borad range of applications for function approximation, in particular, classiofication
+- hidden layer representations may lead to new insight into the data
+- training is difficult:
+    * suitable architecture must be found
+    * suitable parameters must be found
+    * local optima must be avoided
+
+
+### Neural architectures
+Neural networks can be wired in highly complex ways. Given $$N$$ neurons, let $$w_{ik}$$ be the weight from neuron $$k$$ to neuron $$i$$. Note $$i$$ and $$k$$ are now numbers of neurons, not numbers of inputs on a particular neuron.
+
+The $$NxN$$ matrix $$w$$ is called **connectivity matrix**. It comprises the complete wiring information of the ANN, defining a directed graph. There are different special cases of connectivit matrices.
+
+1. Fully connected net:
+    * each neuron has connections to all other neurons
+    * highly complex dynamics
+2. Sparsely connected net:
+    * only few non-zero elements
+    * both forward and backward coupling
+    * some statements about dynamics are possible
+3. Diagonal matrix:
+    * $$w_{ii} \neq 0$$, $$w_{ik} = 0$$ for $$i=k$$
+    * $$N$$ isolted neurons withoud connections
+    * each neuron has only a connection to itself
+4. Tridiagonal matrix:
+    * chain of $$N$$ neurons
+    * each neuron has both forward and backward coupling to its neighbors
+    * only local couplings
+5. Lower triangular matrix
+    *  $$w_{ik} = 0$$ for $$i \leq k$$
+    * feedforward network (provided index grows in "forward" direction, e.g., from input to output)
+    * architecture type of the MLP
+    * no recurrency
+    * diagonal is $$0 \rightarrow$$ no self-coupling of neurons
+6. Upper triangular matrix (theoretical):
+    * only backward coupling
+    * re-numbering $$\rightarrow$$ feedforward network
+7. Block diagonal matrix:
+    * three seperate networks
+    * each network is fully connected
+8. Block diagonal matrix, sparse rest of matrix
+    * three networks sparsely connected to each other
+    * forward connection from first to third net (in the sense of neuron numbers)
+    * backward connections $$3\rightarrow 2$$ and $$2\rightarrow 1$$
+9. Symmetrix matrix:
+    * $$w_{ik} = w_{ki}$$
+    * **Hopfield** network
+    * dynamics cinverges to a point attractor
+
+#### Recurrent networks
+In contrast to normal feedforward networks that have zero weights in the upper triangle of the connectivity matrix, recurrent networks have non-zero weights in the lower and upper triangle which means that there are cycles.
+
+Recurrent networks are dynmical systems that can only be used by defining dynamics. The **state** of the system is the vector comprising all neuron activations. It varies over time. There are two ways of defininf the dynamics:
+1. continous time $$\rightarrow$$ description as a sstem of differential equations
+2. discrete time steps:
+    * synchonous updating: all neurons within a single time setep (provided the previous state)
+    * asynchronous updating: select one neuron randomly, update
+
+Note the above refers to abstract neurons, not spiking neuron models.
+
