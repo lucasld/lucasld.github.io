@@ -116,6 +116,19 @@ local-methods:
     -
         name: "self-organizing-maps"
         name_value: "Self-organizing maps"
+classification:
+    -
+        name: "bayes-classifier"
+        name_value: "Bayes classifier"
+    -
+        name: "euclidean-classifier"
+        name_value: "Euclidean classifier"
+    -
+        name: "support-vector-machine"
+        name_value: "Support vector machine"
+    -
+        name: "random-forests"
+        name_value: "Random forests"
 ---
 
 Here I write about some techniques to make machines learn from data.
@@ -152,5 +165,8 @@ Here I write about some techniques to make machines learn from data.
     * <a href="{{ site.baseurl }}{% link post_content/machine_learning/local-methods.md %}#{{subchapter.name}}">{{ subchapter.name_value }}</a>
     {% endfor %}
 - [Classification]({{ site.baseurl }}{% link post_content/machine_learning/classification.md %})
+    {% for subchapter in page.classification %}
+    * <a href="{{ site.baseurl }}{% link post_content/machine_learning/classification.md %}#{{subchapter.name}}">{{ subchapter.name_value }}</a>
+    {% endfor %}
 - [Reinforcement Learning]({{ site.baseurl }}{% link post_content/machine_learning/reinforcement-learning.md %})
 - [Modelling Unvertainty]({{ site.baseurl }}{% link post_content/machine_learning/modelling-uncertainty.md %})
