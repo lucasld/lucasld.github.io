@@ -166,3 +166,48 @@ Gradient descent with respect to only ine example $$(\vec{x^i}, \vec{t^i})$$ at 
 
 
 ### Multilayer Perceptron
+The idea is to solve nonlinear seperation tasks with non linear seperatices and with class coering disjoint areas by combining several perceptrons. In addition it is possible to generate several outputs.
+
+#### Architecture
+- Input layer with one neuron for each component of the input vector $$\vec{x}$$. The input "neurons" do nothing but represent the input.
+- at least one hidden layer
+- hidden layers may have different numbers of neurons
+- number of output neurons is dimensioanlity of the output vector $$\vec{y}$$
+- *feed forward achitecture:* only connections from layer $$k$$ to layer $$i$$ with $$k < i$$
+- generaliuzation to a directed graph: conncetions skipping layers are allowed. This case is not consided here since such can be represented by additional linar neurons
+
+Linear actiovation function would not do, since a succession of linear transforms (represented by the layers) can be replaced by a single linear transform $$\rightarrow$$ use **sigmoid activation** function $$\sigma$$.
+* step function enforces a "decision"
+* soft step required because backpropagation algorithm needs differentiablity
+* **squashing:** maps the incoming information to a much smaller range
+
+#### Backpropagation
+**Error signal**
+
+Output layer:\
+For $$i=1...N(L_H+1)$$: $$\delta_i{L_H+1} = \sigma'(s_i) * (t_i - y_i(\vec{x})$$
+
+Hidden layers:\
+For $$i=1...N(k)$$: $$\delta_i(k) = \sigma'(s_i(k)) * \sum_{j=1...N(k+1)}w_{ji}(k+1, k)\delta_j(k+1)$$
+
+**Weight update**
+
+To compute the new weight add $$\Delta w_{ji}(k+1, k) = \eta \delta_j(k+1)o_i(k)$$ to the old weight.
+
+- a weight of neuron $$j$$ is adaped in proportion to
+    - the activation of the neuron in the previous layer to which it is connected
+    - the weighted errors it causes at the outputs
+- the complex scheme is necessary sinec target values are available only for the outputs, not the neurons in the hidden layers
+- the backpropagation algorithm performs a stochastic approximation to gradient descent for the error function $$E$$ (based on one sample at a time)
+- minimization
+    - is computationally expensive
+    - suffers from numerous local minima
+    - is difficult to terminate: achieve good minimization without overfitting
+
+##### Local minima
+Two (of many) ways to avoid local minima:
+**Repeat:** Training with different random initial weights in the hope minimization is caught in different basins of attraction
+
+**Annealing:** Add noise, e.g., every $$n$$ learning steps: $$w_{ji}(k+1, k) \leftarrow w_{ji}(k+1, k) + T \zeta_{ji}(k+1, k)$$ where $$\zeta$$ is a Gaussian random variable with $$<\zeta> = 0$$ and $$\zeta_{ji}(k+1, k)$$ are pairwise uncorrelated. $$T$$ is the "temperature", denoting the amount of noise added. $$T$$ is gradually decreased during training. Annealing improves minimization but requires more learning steps.
+
+**Step size adaption:** Increade $$\eta$$ in flat regions and decrease $$\eta$$ in steep terrain. Step size adaption:
