@@ -85,6 +85,26 @@ dimension-reduction:
     -
         name: "visualization-of-high-dimensional-data"
         name_value: "Visualization of high dimensional data"
+
+neural-networks:
+    -
+        name: "computer-vs-brain"
+        name_value: "Computer vs. brain"
+    -
+        name: "types-of-learning"
+        name_value: "Types of learning"
+    -
+        name: "hebbian-learning"
+        name_value: "Hebbian learning"
+    -
+        name: "perceptron"
+        name_value: "Perceptron"
+    -
+        name: "multilayer-perceptron"
+        name_value: "Multilayer Perceptron"
+    -
+        name: "neural-architectures"
+        name_value: "Neural architectures"
 ---
 
 Here I write about some techniques to make machines learn from data.
@@ -113,3 +133,10 @@ Here I write about some techniques to make machines learn from data.
     * <a href="{{ site.baseurl }}{% link post_content/machine_learning/dimension-reduction.md %}#{{subchapter.name}}">{{ subchapter.name_value }}</a>
     {% endfor %}
 - [Neural Networks]({{ site.baseurl }}{% link post_content/machine_learning/neural-networks.md %})
+    {% for subchapter in page.neural-networks %}
+    * <a href="{{ site.baseurl }}{% link post_content/machine_learning/neural-networks.md %}#{{subchapter.name}}">{{ subchapter.name_value }}</a>
+    {% endfor %}
+- [Local Methods]({{ site.baseurl }}{% link post_content/machine_learning/local-methods.md %})
+- [Classification]({{ site.baseurl }}{% link post_content/machine_learning/classification.md %})
+- [Reinforcement Learning]({{ site.baseurl }}{% link post_content/machine_learning/reinforcement-learning.md %})
+- [Modelling Unvertainty]({{ site.baseurl }}{% link post_content/machine_learning/modelling-uncertainty.md %})
