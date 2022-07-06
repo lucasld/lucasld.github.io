@@ -2,8 +2,6 @@
 layout: post
 title: Machine Learning - Neural Networks
 ---
-
-
 ### Computer vs. brain
 **Computers:**
 * fast sequential processing
