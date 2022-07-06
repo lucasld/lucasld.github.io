@@ -129,6 +129,28 @@ classification:
     -
         name: "random-forests"
         name_value: "Random forests"
+reinforcement-learning:
+    -
+        name: "weak-teacher"
+        name_value: "Weak teacher"
+    -
+        name: "markow-decision-process"
+        name_value: "Markov decision process"
+    -
+        name: "learning-task"
+        name_value: "Learning task"
+    -
+        name: "horizon"
+        name_value: "Horizon"
+    -
+        name: "learning"
+        name_value: "Learning"
+    -
+        name: "q-function"
+        name_value: "Q function"
+    -
+        name: "summary"
+        name_value: "Summary"
 ---
 
 Here I write about some techniques to make machines learn from data.
