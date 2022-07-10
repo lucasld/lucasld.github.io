@@ -34,7 +34,7 @@ attractor_system = (sketch) => {
             this.points = new Array()
         }
 
-        move = () => {
+        move = (points_length) => {
             let dt = 0.01
             this.dx = (a*this.x - this.y*this.z) * dt
             this.dy = (b*this.y+ this.x*this.z) * dt
@@ -43,8 +43,10 @@ attractor_system = (sketch) => {
             this.y = this.y + this.dy
             this.z = this.z + this.dz
             this.points.push(new p5.Vector(this.x, this.y, this.z))
-            if (this.points.length > 5){
-                this.points.shift()
+            for (var i=0; i<2; i++){
+                if (this.points.length > points_length){
+                    this.points.shift()
+                }
             }
             // moving to fast
             if (sketch.abs(this.dx) > this.speed_limit ||
@@ -58,7 +60,7 @@ attractor_system = (sketch) => {
 
         display = () => {
             var c = webgl_graphics.color((this.dx)*100, (this.dy)*100, (this.dz)*100)
-            c.setAlpha(150 + (this.dx + this.dy + this.dz) * 10)
+            c.setAlpha(sketch.map(this.points.length, 1, 20, 150, 80) + (this.dx + this.dy + this.dz) * 10)
             webgl_graphics.stroke(c)
             webgl_graphics.strokeWeight(0.3)
             webgl_graphics.noFill()
@@ -77,16 +79,25 @@ attractor_system = (sketch) => {
     }
 
     class ParticleSystem{
-        constructor(number_particles) {
+        constructor(number_particles, points_length) {
             this.particles = new Array()
+            this.number_particles = number_particles
+            this.points_length = points_length
             for (var i=0; i<number_particles; i++){
                 this.particles.push(new Particle())
             }
         }
 
         step = () => {
+            for (var i=0; i<40; i++){
+                if (this.particles.length > this.number_particles){
+                    this.particles.pop()
+                } else if (this.particles.length < this.number_particles){
+                    this.particles.push(new Particle())
+                }
+            }
             for (var particle of this.particles) {
-                var keep = particle.move()
+                var keep = particle.move(this.points_length)
                 if (!keep) {
                     particle.init_particle()
                 }
@@ -96,7 +107,7 @@ attractor_system = (sketch) => {
 
     }
 
-    let ps = new ParticleSystem(2000)
+    let ps = new ParticleSystem(2000, 4)
     let webgl_graphics;
 
     sketch.setup = () => {
@@ -137,12 +148,32 @@ attractor_system = (sketch) => {
         c.setAlpha(100)
         webgl_graphics.stroke(c)
         webgl_graphics.box(50)
-        webgl_graphics.translate(0, 0, 35);
+        webgl_graphics.translate(0, 0, 30);
         ps.step()
         webgl_graphics._renderer._update()
         webgl_graphics.pop()
-
         sketch.image(webgl_graphics, 0, 20)
+        // Parameter Controls
+        sketch.noStroke();
+        // particle line length
+        sketch.fill(255 - ps.points_length*5)
+        sketch.rect(0, 0, sketch.width/4, 19)
+        sketch.fill(0)
+        sketch.textSize(13)
+        sketch.text(`Points per Particle: ${ps.points_length}`, 10,14)
+        if (sketch.mouseY <= 20 && sketch.mouseX < sketch.width/4 && sketch.mouseX > 0) {
+            ps.points_length = Math.round(sketch.map(sketch.mouseX, 0, sketch.width/4, 1, 20))
+        }
+        // number of particles
+        sketch.fill(sketch.map(ps.number_particles, 20, 4000, 100, 255))
+        sketch.rect(sketch.width/4, 0, sketch.width/4, 19)
+        sketch.fill(0)
+        sketch.textSize(13)
+        sketch.text(`Number of Particles: ${ps.number_particles}`, sketch.width/4 + 10, 14)
+        if (sketch.mouseY <= 20 && sketch.mouseX < sketch.width/2 && sketch.mouseX > sketch.width/4) {
+            ps.number_particles = Math.round(sketch.map(sketch.mouseX, sketch.width/4, sketch.width/2, 20, 4000))
+        }
+
     }
 
     sketch.windowResized = () => {
@@ -151,6 +182,7 @@ attractor_system = (sketch) => {
         var _width = parseInt(style.width.slice(0, -2))
         sketch.resizeCanvas(_width - 25, _width * 1/2)
         webgl_graphics = sketch.createGraphics(sketch.width, sketch.height, sketch.WEBGL)
+        webgl_graphics.camera(0, 0, 85, 0,0,0, 0, 1, 0)
     }
 
     // change main color if switch in theme is detected
