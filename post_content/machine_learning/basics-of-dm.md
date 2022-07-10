@@ -165,6 +165,15 @@ Special cases:
 * $$p = 2$$: $$d(\vec(x), \vec(y)) = (\sum_{i=1...L}(x_i - y_i)^2)^{1/2}$$  (euclidean)
 * $$p \rightarrow \infty$$: $$d(\vec(x), \vec(y)) = max_{i=1...L} \vert x_i - y_i \vert$$ (maximum)
 
+The p-Norm is defined by $\|\vec{x}\|_p = (\sum_{i=1}^n |x_i|^p)^{1/p}$.
+We want to visualize a unit circle in different p-Norms so $\vec{x}$ is 2-dimensional. Our p-Norm formula can therefore be written as $\|(x_1, x_2)\|_p = (|x_1|^p + |x_2|^p)^{1/p}$.
+To draw the unit circle we simply have to solve $\|(x_1, x_2)\| = 1$.
+
+$1 = (|x_1|^p + |x_2|^p)^{1/p}$\
+$x_2 = \pm (1 - |x_1|^p)^{1/p}$
+
+![](images/pnorm.gif)
+
 **Embeddings**
 We need to use a *embedding* if our data uses a different topology than $$\Re^n$$. One example for a other topology are angular attributes:\
 $$\vert\vert 10^• - 30^•\vert\vert = 20^•$$\
