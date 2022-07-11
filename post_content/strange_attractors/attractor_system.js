@@ -125,12 +125,16 @@ attractor_system = (sketch, move) => {
         webgl_graphics = sketch.createGraphics(sketch.width, sketch.height, sketch.WEBGL)
         webgl_graphics.clear()
         webgl_graphics.camera(0, 0, 85, 0,0,0, 0, 1, 0)
-
+        sketch.background(bg_color)
+        sketch.textAlign(sketch.CENTER)
+        sketch.textSize(12)
+        sketch.text("starts when mouse moves here", sketch.width/2, sketch.height/2)
     }
     
     
     sketch.draw = () => {
         if (sketch.mouseY > 0 && sketch.mouseY < sketch.height){
+            sketch.background(bg_color)
             webgl_graphics.background(bg_color)
             webgl_graphics.push()
             webgl_graphics.rotateY(ownFrameCount/130)
@@ -150,8 +154,8 @@ attractor_system = (sketch, move) => {
             ownFrameCount ++
         }
         // Parameter Controls
-        sketch.noStroke();
         // number of particles
+        sketch.stroke(255);
         sketch.fill(sketch.map(ps.number_particles, min_particle_number, max_particle_number, 100, 255))
         sketch.rect(0, 0, sketch.width/4, 19)
         sketch.stroke(0, 0, 255)
@@ -162,6 +166,7 @@ attractor_system = (sketch, move) => {
         sketch.textSize(13)
         sketch.text(`number of particles: ${ps.number_particles}`, 10,14)
         // trail line length
+        sketch.stroke(255);
         sketch.fill(sketch.map(ps.points_length, min_trail_length, max_trail_length, 100, 255))
         sketch.rect(sketch.width/4, 0, sketch.width/4, 19)
         sketch.stroke(0, 0, 255)
@@ -172,6 +177,7 @@ attractor_system = (sketch, move) => {
         sketch.textSize(13)
         sketch.text(`particle trail-length: ${ps.points_length}`, sketch.width/4 + 10, 14)
         // background color
+        sketch.stroke(255);
         sketch.fill(bg_color)
         sketch.rect(sketch.width/2, 0, sketch.width/4, 19)
         sketch.stroke(0, 0, 255)
