@@ -7,7 +7,7 @@ permalink: /portfolio/
 ### Sample Portfolio
 
 #### Roll #01
-Leipzig to Hamburg by Bicyle (Feburary 2022)
+Leipzig to Hamburg by Bicyle (January 2022)
 ![]({{site.baseurl}}/assets/images/portfolio/roll-1/img1.jpg)
 ![]({{site.baseurl}}/assets/images/portfolio/roll-1/img2.jpg)
 ![]({{site.baseurl}}/assets/images/portfolio/roll-1/img3.jpg)
