@@ -159,6 +159,7 @@ attractor_system = (sketch, move) => {
         sketch.fill(sketch.map(ps.number_particles, min_particle_number, max_particle_number, 100, 255))
         sketch.rect(0, 0, sketch.width/4, 19)
         sketch.stroke(0, 0, 255)
+        sketch.textAlign(sketch.LEFT);
         var x = sketch.map(ps.number_particles, min_particle_number, max_particle_number, 0, sketch.width/4)
         sketch.line(x, 1, x, 19)
         sketch.fill(0)
