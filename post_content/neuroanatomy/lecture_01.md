@@ -2,13 +2,11 @@
 layout: post
 title: Neuroananatomy - Lecture 1
 ---
-
-# Lecture 1
-## 1. Functional organization of the nervous system
+### 1. Functional organization of the nervous system
 - sensory input (receptors, peripheral nervoussystem - PNS) -> information processing (integreation, central-nervoussystem - ZNS) -> motor output (muscles, PNS)
 
-## 2. Development of nervous systems
-### **"Lowest" organism with a neruronal network: Cnidaria (polyps and medusae)**
+### 2. Development of nervous systems
+#### **"Lowest" organism with a neruronal network: Cnidaria (polyps and medusae)**
 - the Tripedalia cystophora has a powerful sensorric system
     - total of 24 eyes
 
@@ -25,7 +23,7 @@ net of multipolar nerve cells below the epithelial cell layer in connection to s
 
 net of nerve cells on top of muscle cells ("subumbrellar nerve...
 
-### **"Lowest" organism with a central nervous system: Plathelminthes and Nemathelminthes (flatworms and roundworms)**
+#### **"Lowest" organism with a central nervous system: Plathelminthes and Nemathelminthes (flatworms and roundworms)**
 - contain a body axis
 - contain a spezialized head region ("cephalization")
 - contain an accumulation of nerve cells in the head region ("brain")
@@ -41,7 +39,7 @@ Important model system: Caenorhabditis elegans (roundworm, nematode)
 
 
 
-## 3. Nervous systems of vertebrates
+### 3. Nervous systems of vertebrates
 - increasedtendency of centralization and cephalization:
 
     Humans:
