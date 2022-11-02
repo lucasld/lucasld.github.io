@@ -158,7 +158,6 @@ Here I write about some techniques to make machines learn from data.
 
 ### Topics:
 - [Concept Learning]({{ site.baseurl }}{% link post_content/machine_learning/concept-learning.md %})
-    
     {% for subchapter in page.concept-learning %}
     - <a href="{{ site.baseurl }}{% link post_content/machine_learning/concept-learning.md %}#{{subchapter.name}}">{{ subchapter.name_value }}</a>
     {% endfor %}

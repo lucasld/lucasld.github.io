@@ -11,9 +11,3 @@ Strange Attractors are strange...
 ### Lorenz Attractor
 
 <div id="sketch-attractor-system2"></div>
-
-
-
-<!--<div id="sketch-attractor">
-<script language="javascript" type="text/javascript" src="/post_content/strange_attractors/attractor.js"></script>
-</div> -->
